@@ -1,19 +1,34 @@
 'use client';
 
 import Link from 'next/link';
-import { Glasses, ShoppingCart } from 'lucide-react';
+import { Glasses, ShoppingCart, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/cart-context';
 import { CartSheet } from './CartSheet';
 import { useState } from 'react';
 import { SidebarTrigger } from './ui/sidebar';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Input } from './ui/input';
 
 export function Header() {
   const { itemCount } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
+  
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchQuery.trim() === '') {
+      router.push('/');
+    } else {
+      router.push(`/?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-sm">
@@ -26,6 +41,21 @@ export function Header() {
             </span>
           </Link>
         </div>
+
+        <div className="flex flex-1 items-center justify-center px-4">
+          <div className="w-full max-w-sm">
+             <form onSubmit={handleSearch} className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search products..."
+                className="w-full pl-9"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </form>
+          </div>
+        </div>
+
         <div className="flex flex-1 items-center justify-end space-x-2">
           {isHomePage && (
             <div className="md:hidden">

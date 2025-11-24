@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Suspense } from 'react';
 import Image from 'next/image';
 import { products, Product } from '@/lib/products';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductFilters } from '@/components/ProductFilters';
 import { Sidebar, SidebarInset } from '@/components/ui/sidebar';
+import { useSearchParams } from 'next/navigation';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export type Filters = {
   type: string[];
@@ -14,7 +16,9 @@ export type Filters = {
   style: string[];
 };
 
-export default function Home() {
+function ProductGrid() {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get('q') || '';
   const [filters, setFilters] = useState<Filters>({
     type: [],
     brand: [],
@@ -23,6 +27,14 @@ export default function Home() {
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
+      // Search query filter
+      const matchesSearch = searchQuery
+        ? product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          product.description.toLowerCase().includes(searchQuery.toLowerCase())
+        : true;
+      if (!matchesSearch) return false;
+      
+      // Checkbox filters
       const { type, brand, style } = filters;
       if (type.length > 0 && !type.includes(product.type)) {
         return false;
@@ -35,7 +47,7 @@ export default function Home() {
       }
       return true;
     });
-  }, [filters]);
+  }, [filters, searchQuery]);
 
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
 
@@ -69,7 +81,7 @@ export default function Home() {
 
           <div className="p-4 md:p-8">
             <h2 className="font-headline text-3xl font-semibold mb-6">
-              Our Collection
+              {searchQuery ? `Search results for "${searchQuery}"` : "Our Collection"}
             </h2>
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -79,7 +91,9 @@ export default function Home() {
               </div>
             ) : (
               <div className="text-center py-16">
-                <p className="text-xl text-muted-foreground">No products found matching your criteria.</p>
+                <p className="text-xl text-muted-foreground">
+                  {searchQuery ? `No products found for "${searchQuery}".` : "No products found matching your criteria."}
+                </p>
               </div>
             )}
           </div>
@@ -87,4 +101,63 @@ export default function Home() {
       </SidebarInset>
     </div>
   );
+}
+
+
+export default function Home() {
+  return (
+    <Suspense fallback={<HomePageSkeleton />}>
+      <ProductGrid />
+    </Suspense>
+  );
+}
+
+function HomePageSkeleton() {
+  const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
+  return (
+     <div className="flex min-h-screen">
+      <Sidebar>
+        <div className="p-2">
+            <div className="flex items-center justify-between mb-4">
+                <Skeleton className="h-8 w-24" />
+                <Skeleton className="h-8 w-16" />
+            </div>
+            <div className="space-y-4">
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+            </div>
+        </div>
+      </Sidebar>
+      <SidebarInset>
+        <div className="flex flex-col">
+          <div className="relative h-64 w-full md:h-96 bg-muted">
+             {heroImage && (
+              <Image
+                src={heroImage.imageUrl}
+                alt={heroImage.description}
+                fill
+                className="object-cover"
+                data-ai-hint={heroImage.imageHint}
+                priority
+              />
+            )}
+          </div>
+          <div className="p-4 md:p-8">
+            <Skeleton className="h-8 w-1/3 mb-6" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="space-y-2">
+                  <Skeleton className="h-40 w-full" />
+                  <Skeleton className="h-6 w-3/4" />
+                  <Skeleton className="h-6 w-1/2" />
+                  <Skeleton className="h-10 w-full" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </SidebarInset>
+    </div>
+  )
 }
