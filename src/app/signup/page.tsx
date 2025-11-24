@@ -61,7 +61,7 @@ export default function SignUpPage() {
       const user = result.user;
       const [first = '', last = ''] = user.displayName?.split(' ') ?? [];
 
-      // Create user document in Firestore
+      // Create or merge user document in Firestore
       await setDoc(doc(firestore, "users", user.uid), {
         id: user.uid,
         firstName: first,
