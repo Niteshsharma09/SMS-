@@ -21,7 +21,7 @@ export function ProductCard({ product }: ProductCardProps) {
     <Card className="flex flex-col overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       <CardHeader className="p-0">
         <Link href={`/product/${product.id}`}>
-          <div className="relative aspect-[3/2] w-full">
+          <div className="relative aspect-video w-full">
             {image && (
               <Image
                 src={image.imageUrl}
@@ -36,9 +36,10 @@ export function ProductCard({ product }: ProductCardProps) {
         </Link>
       </CardHeader>
       <CardContent className="flex-1 p-4">
-        <CardTitle className="font-headline text-lg tracking-normal">
-          <Link href={`/product/${product.id}`}>{product.name}</Link>
-        </CardTitle>
+        <Link href={`/product/${product.id}`} className="space-y-1">
+            <CardTitle className="font-headline text-lg tracking-normal leading-snug hover:underline">{product.name}</CardTitle>
+            <p className="text-sm capitalize text-muted-foreground">{product.type}</p>
+        </Link>
         <p className="mt-2 text-xl font-semibold text-primary">
           ${product.price.toFixed(2)}
         </p>
