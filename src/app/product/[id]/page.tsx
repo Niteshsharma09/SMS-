@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { getProductById } from '@/lib/products';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -27,6 +27,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
   const product = getProductById(params.id);
   const { addToCart } = useCart();
+  const router = useRouter();
   
   if (!product) {
     notFound();
@@ -54,6 +55,11 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
   const handleAddToCart = () => {
     addToCart(product, 1, selectedLens || undefined);
+  };
+
+  const handleBuyNow = () => {
+    addToCart(product, 1, selectedLens || undefined);
+    router.push('/checkout');
   };
   
   const totalCost = product.price + (selectedLens?.price || 0);
@@ -162,10 +168,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 <DialogTrigger asChild>
                     <Button size="lg" variant="outline" className="flex-1">
                         <Plus className="mr-2 h-5 w-5" />
-                        {selectedLens ? 'Change Lens' : 'Select Lens'}
+                        {selectedLens ? 'Change Lens' : 'Select Lens & Buy'}
                     </Button>
                 </DialogTrigger>
-                <LensSelectionModal onLensSelect={handleLensSelect} />
+                <LensSelectionModal onLensSelect={handleLensSelect} product={product} />
             </Dialog>
             <Button size="lg" className="flex-1" onClick={handleAddToCart}>
               <ShoppingCart className="mr-2 h-5 w-5" />

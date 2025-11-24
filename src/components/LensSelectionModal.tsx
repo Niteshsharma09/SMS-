@@ -6,6 +6,7 @@ import { DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/c
 import { LensOptions, LensOption } from "@/components/LensOptions";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "./ui/button";
+import { Product } from "@/lib/products";
 
 type LensCategory = {
   title: 'Zero Power' | 'Single Vision' | 'Progressive' | 'Bifocal';
@@ -34,9 +35,10 @@ const lensCategories: LensCategory[] = [
 
 interface LensSelectionModalProps {
     onLensSelect: (lens: LensOption) => void;
+    product?: Product;
 }
 
-export function LensSelectionModal({ onLensSelect }: LensSelectionModalProps) {
+export function LensSelectionModal({ onLensSelect, product }: LensSelectionModalProps) {
     const [step, setStep] = useState<'category' | 'options'>('category');
     const [selectedCategory, setSelectedCategory] = useState<LensCategory | null>(null);
 
@@ -89,6 +91,7 @@ export function LensSelectionModal({ onLensSelect }: LensSelectionModalProps) {
                             lensType={selectedCategory.title} 
                             onClose={() => {}} // Will be handled by onLensSelect now
                             onLensSelect={handleOptionSelectAndClose}
+                            product={product}
                         />
                     </div>
                 </div>

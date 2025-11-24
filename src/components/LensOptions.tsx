@@ -6,6 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ScrollArea } from "./ui/scroll-area";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { Product } from "@/lib/products";
+import { useCart } from "@/context/cart-context";
+import { useRouter } from "next/navigation";
 
 export type LensOption = {
     title: string;
@@ -39,6 +42,7 @@ interface LensOptionsProps {
     lensType: 'Single Vision' | 'Zero Power' | 'Progressive' | 'Bifocal';
     onClose: () => void;
     onLensSelect: (lensOption: LensOption) => void;
+    product?: Product;
 }
 
 interface PrescriptionFormProps {
@@ -46,12 +50,21 @@ interface PrescriptionFormProps {
     lensOption: LensOption;
     onBack: () => void;
     onProceed: (lensOption: LensOption) => void;
+    product?: Product;
 }
 
 
-function PrescriptionForm({ lensType, lensOption, onBack, onProceed }: PrescriptionFormProps) {
+function PrescriptionForm({ lensType, lensOption, onBack, onProceed, product }: PrescriptionFormProps) {
+    const { addToCart } = useCart();
+    const router = useRouter();
+
     const handleProceedToBuy = () => {
-        onProceed(lensOption);
+        if (product) {
+            addToCart(product, 1, lensOption);
+            router.push('/checkout');
+        } else {
+            onProceed(lensOption);
+        }
     }
 
     return (
@@ -95,7 +108,7 @@ function PrescriptionForm({ lensType, lensOption, onBack, onProceed }: Prescript
     )
 }
 
-export function LensOptions({ lensType, onLensSelect }: LensOptionsProps) {
+export function LensOptions({ lensType, onLensSelect, product }: LensOptionsProps) {
     const [selectedOption, setSelectedOption] = useState<LensOption | null>(null);
     const options = lensOptionsMap[lensType];
 
@@ -105,6 +118,7 @@ export function LensOptions({ lensType, onLensSelect }: LensOptionsProps) {
                     lensOption={selectedOption} 
                     onBack={() => setSelectedOption(null)}
                     onProceed={onLensSelect}
+                    product={product}
                 />
     }
 
