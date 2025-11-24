@@ -53,7 +53,7 @@ export function CartSheet({ isOpen, onOpenChange }: CartSheetProps) {
                        </div>
                       <div className="flex-1">
                         <h3 className="font-semibold">{item.product.name}</h3>
-                        <p className="text-sm text-muted-foreground">${item.product.price.toFixed(2)}</p>
+                        <p className="text-sm text-muted-foreground">₹{item.product.price.toFixed(2)}</p>
                         <div className="mt-2 flex items-center gap-2">
                           <Input
                             type="number"
@@ -77,7 +77,7 @@ export function CartSheet({ isOpen, onOpenChange }: CartSheetProps) {
               <div className="w-full space-y-4">
                 <div className="flex justify-between font-semibold">
                   <span>Subtotal</span>
-                  <span>${cartTotal.toFixed(2)}</span>
+                  <span>₹{cartTotal.toFixed(2)}</span>
                 </div>
                  <SheetClose asChild>
                     <Button asChild className="w-full" size="lg">
