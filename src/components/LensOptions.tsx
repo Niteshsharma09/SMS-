@@ -6,10 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ScrollArea } from "./ui/scroll-area";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { useCart } from "@/context/cart-context";
-import type { Product } from "@/lib/products";
 
-type LensOption = {
+export type LensOption = {
     title: string;
     price: number;
     features: string[];
@@ -40,35 +38,20 @@ const lensOptionsMap = {
 interface LensOptionsProps {
     lensType: 'Single Vision' | 'Zero Power' | 'Progressive' | 'Bifocal';
     onClose: () => void;
+    onLensSelect: (lensOption: LensOption) => void;
 }
 
 interface PrescriptionFormProps {
     lensType: string;
     lensOption: LensOption;
     onBack: () => void;
-    onClose: () => void;
+    onProceed: (lensOption: LensOption) => void;
 }
 
 
-function PrescriptionForm({ lensType, lensOption, onBack, onClose }: PrescriptionFormProps) {
-    const { addToCart } = useCart();
-
+function PrescriptionForm({ lensType, lensOption, onBack, onProceed }: PrescriptionFormProps) {
     const handleProceedToBuy = () => {
-        // Create a virtual product to add to the cart
-        const lensProduct: Product = {
-            id: `lens-${lensType.replace(/\s+/g, '-')}-${lensOption.title.replace(/\s+/g, '-')}`,
-            name: `${lensType} - ${lensOption.title}`,
-            price: lensOption.price,
-            description: lensOption.features.join(', '),
-            type: 'lenses',
-            brand: 'Visionary', // Or a more appropriate brand
-            style: lensType,
-            material: 'Polycarbonate', // Default material
-            imageId: 'lens-1' // A generic lens image
-        };
-
-        addToCart(lensProduct);
-        onClose(); // Close the modal after adding to cart
+        onProceed(lensOption);
     }
 
     return (
@@ -106,14 +89,13 @@ function PrescriptionForm({ lensType, lensOption, onBack, onClose }: Prescriptio
 
             <div className="mt-auto pt-6 flex justify-end gap-2">
                 <Button variant="outline" onClick={onBack}>Back</Button>
-                <Button onClick={onClose} variant="secondary">Close</Button>
                 <Button onClick={handleProceedToBuy}>Proceed to Buy</Button>
             </div>
         </div>
     )
 }
 
-export function LensOptions({ lensType, onClose }: LensOptionsProps) {
+export function LensOptions({ lensType, onLensSelect }: LensOptionsProps) {
     const [selectedOption, setSelectedOption] = useState<LensOption | null>(null);
     const options = lensOptionsMap[lensType];
 
@@ -122,7 +104,7 @@ export function LensOptions({ lensType, onClose }: LensOptionsProps) {
                     lensType={lensType} 
                     lensOption={selectedOption} 
                     onBack={() => setSelectedOption(null)}
-                    onClose={onClose}
+                    onProceed={onLensSelect}
                 />
     }
 

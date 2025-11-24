@@ -6,7 +6,9 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { LensOptions } from "@/components/LensOptions";
+import { LensOptions, LensOption } from "@/components/LensOptions";
+import { useCart } from "@/context/cart-context";
+import { Product } from "@/lib/products";
 
 type LensCategory = {
   title: 'Zero Power' | 'Single Vision' | 'Progressive' | 'Bifocal';
@@ -40,19 +42,34 @@ const lensCategories: LensCategory[] = [
 export default function LensesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<LensCategory | null>(null);
+  const { addToCart } = useCart();
+
 
   const handleCardClick = (category: LensCategory) => {
     setSelectedCategory(category);
     setIsModalOpen(true);
   }
+  
+  const handleLensSelect = (lensOption: LensOption) => {
+    if (!selectedCategory) return;
+    
+    // Create a virtual product to add to the cart
+    const lensProduct: Product = {
+        id: `lens-${selectedCategory.title.replace(/\s+/g, '-')}-${lensOption.title.replace(/\s+/g, '-')}`,
+        name: `${selectedCategory.title} - ${lensOption.title}`,
+        price: lensOption.price,
+        description: lensOption.features.join(', '),
+        type: 'lenses',
+        brand: 'Visionary', // Or a more appropriate brand
+        style: selectedCategory.title,
+        material: 'Polycarbonate', // Default material
+        imageId: selectedCategory.imageId
+    };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    // A small delay to allow the modal to close before resetting the content
-    setTimeout(() => {
-        setSelectedCategory(null);
-    }, 300);
+    addToCart(lensProduct);
+    setIsModalOpen(false); // Close the modal after adding to cart
   }
+
 
   return (
     <div className="bg-background text-foreground">
@@ -85,7 +102,7 @@ export default function LensesPage() {
              <DialogDescription className="text-sm text-muted-foreground text-center">{selectedCategory?.description}</DialogDescription>
           </DialogHeader>
           <div className="flex-1 min-h-0">
-             {selectedCategory && <LensOptions lensType={selectedCategory.title} onClose={() => setIsModalOpen(false)} />}
+             {selectedCategory && <LensOptions lensType={selectedCategory.title} onClose={() => setIsModalOpen(false)} onLensSelect={handleLensSelect} />}
           </div>
         </DialogContent>
       </Dialog>

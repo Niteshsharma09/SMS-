@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { getProductById } from '@/lib/products';
+import { getProductById, Product } from '@/lib/products';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/cart-context';
-import { ShoppingCart, Sparkles, Star, Tag, CheckSquare } from 'lucide-react';
+import { ShoppingCart, Sparkles, Star, Tag, CheckSquare, Plus } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -17,12 +17,16 @@ import {
 } from "@/components/ui/dialog";
 import { VirtualTryOn } from '@/components/VirtualTryOn';
 import { cn } from '@/lib/utils';
+import { LensSelectionModal } from '@/components/LensSelectionModal';
+import { LensOption } from '@/components/LensOptions';
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const [isTryOnOpen, setIsTryOnOpen] = useState(false);
+  const [isLensModalOpen, setIsLensModalOpen] = useState(false);
+  const [selectedLens, setSelectedLens] = useState<LensOption | null>(null);
+
   const product = getProductById(params.id);
   const { addToCart } = useCart();
-  const router = useRouter();
   
   if (!product) {
     notFound();
@@ -31,7 +35,6 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const image = PlaceHolderImages.find((img) => img.id === product.imageId);
   const [activeImage, setActiveImage] = useState(image?.imageUrl);
 
-  // For the gallery, we'll just use the same image 4 times as a placeholder
   const galleryImages = image ? [image, image, image, image] : [];
 
   const [zoom, setZoom] = useState(false);
@@ -43,7 +46,28 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     const y = ((e.clientY - top) / height) * 100;
     setPosition({ x, y });
   };
+  
+  const handleLensSelect = (lens: LensOption) => {
+    setSelectedLens(lens);
+    setIsLensModalOpen(false);
+  };
 
+  const handleAddToCart = () => {
+    if (selectedLens) {
+      const bundledProduct: Product = {
+        ...product,
+        id: `${product.id}_${selectedLens.title.replace(/\s+/g, '-')}`,
+        name: `${product.name} with ${selectedLens.title} lenses`,
+        price: product.price + selectedLens.price,
+        description: `${product.description} Includes ${selectedLens.title}: ${selectedLens.features.join(', ')}.`,
+      };
+      addToCart(bundledProduct);
+    } else {
+      addToCart(product);
+    }
+  };
+  
+  const totalCost = product.price + (selectedLens?.price || 0);
 
   return (
     <div className="container mx-auto max-w-7xl py-8 px-4 md:py-12">
@@ -108,7 +132,16 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <span className="text-sm text-muted-foreground">4.6 Ratings</span>
           </div>
 
-          <p className="mt-4 text-3xl font-semibold text-primary">Rs{product.price.toFixed(2)}</p>
+          <div className="mt-4 text-3xl font-semibold text-primary">
+            {selectedLens && <span className="text-lg text-muted-foreground font-normal">Total: </span>}
+            Rs{totalCost.toFixed(2)}
+          </div>
+          {selectedLens && (
+            <div className="text-sm text-muted-foreground">
+                (Frame: Rs{product.price.toFixed(2)} + Lens: Rs{selectedLens.price.toFixed(2)})
+            </div>
+          )}
+
 
           <div className="mt-6">
             <h3 className="font-semibold text-lg flex items-center gap-2"><Tag className="w-5 h-5"/>Available Offers</h3>
@@ -122,19 +155,30 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <h3 className="font-semibold text-lg">Description</h3>
             <p className="mt-2 text-muted-foreground">{product.description}</p>
           </div>
-
-          <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-            <div><span className="font-semibold">Frame Color:</span> {product.material}</div>
-            <div><span className="font-semibold">Material:</span> {product.material}</div>
-            <div><span className="font-semibold">Frame Width:</span> 132mm</div>
-            <div><span className="font-semibold">Model No:</span> {product.id}</div>
-          </div>
+          
+          {selectedLens && (
+            <div className="mt-6 p-4 rounded-lg bg-muted/50 border">
+              <div className="flex justify-between items-center">
+                 <div>
+                    <h4 className="font-semibold">Lens Selected: {selectedLens.title}</h4>
+                    <p className="text-sm text-muted-foreground">{selectedLens.features.join(', ')}</p>
+                 </div>
+                 <Button variant="ghost" size="sm" onClick={() => setSelectedLens(null)}>Change</Button>
+              </div>
+            </div>
+          )}
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <Button size="lg" variant="outline" className="flex-1" onClick={() => router.push('/lenses')}>
-              Select Lens
-            </Button>
-            <Button size="lg" className="flex-1" onClick={() => addToCart(product)}>
+            <Dialog open={isLensModalOpen} onOpenChange={setIsLensModalOpen}>
+                <DialogTrigger asChild>
+                    <Button size="lg" variant="outline" className="flex-1">
+                        <Plus className="mr-2 h-5 w-5" />
+                        {selectedLens ? 'Change Lens' : 'Select Lens'}
+                    </Button>
+                </DialogTrigger>
+                <LensSelectionModal onLensSelect={handleLensSelect} />
+            </Dialog>
+            <Button size="lg" className="flex-1" onClick={handleAddToCart}>
               <ShoppingCart className="mr-2 h-5 w-5" />
               Add to Cart
             </Button>
