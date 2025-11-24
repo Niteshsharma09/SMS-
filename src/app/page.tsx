@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, Suspense } from 'react';
+import { useState, useMemo, Suspense, useEffect } from 'react';
 import Image from 'next/image';
 import { products, Product } from '@/lib/products';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -9,6 +9,7 @@ import { ProductFilters } from '@/components/ProductFilters';
 import { Sidebar, SidebarInset } from '@/components/ui/sidebar';
 import { useSearchParams } from 'next/navigation';
 import { Skeleton } from '@/components/ui/skeleton';
+import { CategoryNavigation } from '@/components/CategoryNavigation';
 
 export type Filters = {
   type: string[];
@@ -20,12 +21,25 @@ export type Filters = {
 function ProductGrid() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('q') || '';
+  const initialCategory = searchParams.get('category') || '';
+  
   const [filters, setFilters] = useState<Filters>({
-    type: [],
+    type: initialCategory ? [initialCategory] : [],
     brand: [],
     style: [],
     lensStyle: [],
   });
+
+  useEffect(() => {
+    const category = searchParams.get('category');
+    if (category) {
+      setFilters(prev => ({ ...prev, type: [category] }));
+    } else {
+      // If no category in URL, you might want to clear the type filter
+      // depending on desired behavior. For now, we'll let it persist
+      // until manually cleared or changed.
+    }
+  }, [searchParams]);
 
   const filteredProducts = useMemo(() => {
     return products
@@ -61,6 +75,13 @@ function ProductGrid() {
         return true;
       });
   }, [filters, searchQuery]);
+  
+  const handleCategorySelect = (category: 'frames' | 'lenses' | 'sunglasses' | null) => {
+    setFilters(prev => ({
+      ...prev,
+      type: category ? [category] : [],
+    }));
+  };
 
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
 
@@ -91,6 +112,8 @@ function ProductGrid() {
               </p>
             </div>
           </div>
+          
+          <CategoryNavigation onSelectCategory={handleCategorySelect} selectedCategory={filters.type[0]} />
 
           <div className="p-4 md:p-8">
             <h2 className="font-headline text-3xl font-semibold mb-6">
