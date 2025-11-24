@@ -3,10 +3,10 @@ export type Product = {
   name: string;
   price: number;
   description: string;
-  type: 'frames' | 'sunglasses';
-  brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue';
-  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport';
-  material: 'Metal' | 'Acetate' | 'Titanium';
+  type: 'frames' | 'sunglasses' | 'lenses';
+  brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary';
+  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Single Vision' | 'Progressive' | 'Blue Light';
+  material: 'Metal' | 'Acetate' | 'Titanium' | 'Polycarbonate';
   imageId: string;
 };
 
@@ -143,6 +143,39 @@ export const products: Product[] = [
     material: 'Acetate',
     imageId: 'sun-6',
   },
+   {
+    id: '13',
+    name: 'ClearView Single Vision',
+    price: 120,
+    description: 'High-quality single vision lenses for clear sight at all distances. Made from durable polycarbonate.',
+    type: 'lenses',
+    brand: 'Visionary',
+    style: 'Single Vision',
+    material: 'Polycarbonate',
+    imageId: 'lens-1',
+  },
+  {
+    id: '14',
+    name: 'MultiView Progressives',
+    price: 280,
+    description: 'Seamless progressive lenses for perfect vision at near, intermediate, and far distances. No more lines.',
+    type: 'lenses',
+    brand: 'Visionary',
+    style: 'Progressive',
+    material: 'Polycarbonate',
+    imageId: 'lens-2',
+  },
+  {
+    id: '15',
+    name: 'ScreenGuard Blue Light',
+    price: 170,
+    description: 'Protect your eyes from digital strain with our advanced blue light filtering lenses. A must-have for the modern world.',
+    type: 'lenses',
+    brand: 'Visionary',
+    style: 'Blue Light',
+    material: 'Polycarbonate',
+    imageId: 'lens-3',
+  }
 ];
 
 export const getProductById = (id: string): Product | undefined => {

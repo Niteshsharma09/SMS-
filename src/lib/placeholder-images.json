@@ -21,7 +21,7 @@
     {
       "id": "frame-3",
       "description": "Minimalist silver metal aviator frames.",
-      "imageUrl": "https://images.unsplash.com/photo-1686165863154-b8f9d69add82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtZXRhbCUyMGF2aWF0b3IlMjBnbGFzc2VzfGVufDB8fHx8MTc2Mzk3NTY3MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1686165863154-b8f9d69add82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtZXRhbCUyMGF2aWF0b3IlMjBnbGFzc2VzfGVufDB8fHx8MTc2M5NzU2NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "metal aviator glasses"
     },
     {
@@ -75,7 +75,7 @@
     {
       "id": "sun-6",
       "description": "Chic white-framed cat-eye sunglasses.",
-      "imageUrl": "https://images.unsplash.com/photo-1584036553516-bf83210aa16c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx3aGl0ZSUyMGNhdC1leWUlMjBzdW5nbGFzc2VzfGVufDB8fHx8MTc2Mzk3NTY3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1584036553516-bf83210aa16c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx3aGl0ZSUyMGNhdC1leWUlMjBzdW5nbGFzc2VzfGVufDB8fHx8MTc2M5NzU2NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "white cat-eye sunglasses"
     },
     {
@@ -83,6 +83,24 @@
       "description": "A close-up of a credit card being held.",
       "imageUrl": "https://images.unsplash.com/photo-1556742031-c6961e8560b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjcmVkaXQlMjBjYXJkJTIwcGF5bWVudHxlbnwwfHx8fDE3NjM4ODA0NTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "credit card payment"
+    },
+    {
+      "id": "lens-1",
+      "description": "A pair of high-quality single vision lenses.",
+      "imageUrl": "https://images.unsplash.com/photo-1700825238508-5b18dabd424a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzaW5nbGUlMjB2aXNpb24lMjBsZW5zZXN8ZW58MHx8fHwxNzYzOTc2NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "single vision lenses"
+    },
+    {
+      "id": "lens-2",
+      "description": "A pair of progressive lenses showing different focal points.",
+      "imageUrl": "https://images.unsplash.com/photo-1654546592303-742ff4f949e0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9ncmVzc2l2ZSUyMGxlbnNlc3xlbnwwfHx8fDE3NjM5NzY0NDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "progressive lenses"
+    },
+    {
+      "id": "lens-3",
+      "description": "A pair of lenses with a blue light filtering coating.",
+      "imageUrl": "https://images.unsplash.com/photo-1712431182145-dddb1a08a826?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxibHVlJTIwbGlnaHQlMjBsZW5zZXN8ZW58MHx8fHwxNzYzOTc2NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blue light lenses"
     }
   ]
 }
