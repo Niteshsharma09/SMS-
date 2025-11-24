@@ -84,9 +84,11 @@ export function UserNav() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/account">
             <UserIcon className="mr-2 h-4 w-4" />
             <span>My Account</span>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
