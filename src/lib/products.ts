@@ -195,5 +195,4 @@ export const getProductById = (id: string): Product | undefined => {
 
 export const brands = [...new Set(products.map(p => p.brand))];
 export const styles = [...new Set(products.filter(p => p.type !== 'lenses').map(p => p.style))];
-const lensStyles = ['Single Vision', 'Bifocal', 'Progressive', 'Zero Power'];
-export const types = [...new Set(products.filter(p => p.type !== 'lenses').map(p => p.type)), ...lensStyles];
+export const types = [...new Set(products.filter(p => p.type !== 'lenses').map(p => p.type))];

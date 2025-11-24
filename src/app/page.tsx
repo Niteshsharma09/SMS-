@@ -29,37 +29,29 @@ function ProductGrid() {
 
   const filteredProducts = useMemo(() => {
     return products
-    .filter((product) => {
-      const { type, brand, style } = filters;
-      
-      // Search query filter
-      const matchesSearch = searchQuery
-        ? product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          product.description.toLowerCase().includes(searchQuery.toLowerCase())
-        : true;
-      if (!matchesSearch) return false;
-      
-      // Checkbox filters
-      
-      // Handle 'type' filter which can include main types or lens styles
-      if (type.length > 0) {
-        const hasTypeMatch = type.some(t => {
-          if (lensStyles.includes(t)) {
-            return product.style === t;
-          }
-          return product.type === t;
-        });
-        if (!hasTypeMatch) return false;
-      }
-      
-      if (brand.length > 0 && !brand.includes(product.brand)) {
-        return false;
-      }
-      if (style.length > 0 && !style.includes(product.style)) {
-        return false;
-      }
-      return true;
-    });
+      .filter((product) => product.type !== 'lenses')
+      .filter((product) => {
+        const { type, brand, style } = filters;
+        
+        // Search query filter
+        const matchesSearch = searchQuery
+          ? product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            product.description.toLowerCase().includes(searchQuery.toLowerCase())
+          : true;
+        if (!matchesSearch) return false;
+        
+        // Checkbox filters
+        if (type.length > 0 && !type.includes(product.type)) {
+          return false;
+        }
+        if (brand.length > 0 && !brand.includes(product.brand)) {
+          return false;
+        }
+        if (style.length > 0 && !style.includes(product.style)) {
+          return false;
+        }
+        return true;
+      });
   }, [filters, searchQuery]);
 
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
