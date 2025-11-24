@@ -35,7 +35,7 @@ const lensCategories: LensCategory[] = [
 
 interface LensSelectionModalProps {
     onLensSelect: (lens: LensOption) => void;
-    product?: Product;
+    product?: Product; // This is now optional
 }
 
 export function LensSelectionModal({ onLensSelect, product }: LensSelectionModalProps) {
@@ -64,7 +64,7 @@ export function LensSelectionModal({ onLensSelect, product }: LensSelectionModal
                         <DialogTitle className="font-headline text-2xl text-center mb-2">Select Lens Type</DialogTitle>
                         <DialogDescription className="text-sm text-muted-foreground text-center">Choose the type of lens that fits your needs.</DialogDescription>
                     </DialogHeader>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 flex-1 overflow-y-auto">
                         {lensCategories.map(category => (
                             <div key={category.title} onClick={() => handleCategorySelect(category)}
                                 className="p-6 border rounded-lg cursor-pointer hover:bg-muted/50 hover:border-primary transition-colors flex flex-col items-center text-center">
@@ -99,3 +99,5 @@ export function LensSelectionModal({ onLensSelect, product }: LensSelectionModal
         </DialogContent>
     );
 }
+
+    

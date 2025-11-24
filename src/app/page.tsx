@@ -14,6 +14,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { LensSelectionModal } from '@/components/LensSelectionModal';
+import { LensOption } from '@/components/LensOptions';
+import { useCart } from '@/context/cart-context';
 
 export type Filters = {
   type: string[];
@@ -57,6 +60,8 @@ function ProductGrid() {
     lensStyle: [],
   });
   const [isBrandModalOpen, setIsBrandModalOpen] = useState(false);
+  const [isLensModalOpen, setIsLensModalOpen] = useState(false);
+  const { addToCart } = useCart();
 
 
   useEffect(() => {
@@ -108,6 +113,8 @@ function ProductGrid() {
   const handleCategorySelect = (category: 'frames' | 'lenses' | 'sunglasses' | null) => {
     if (category === 'frames') {
         setIsBrandModalOpen(true);
+    } else if (category === 'lenses') {
+        setIsLensModalOpen(true);
     } else {
         setFilters(prev => ({
             ...prev,
@@ -127,6 +134,27 @@ function ProductGrid() {
       setIsBrandModalOpen(false);
   }
 
+  const handleLensSelectFromModal = (lensOption: LensOption) => {
+    const lensProduct: Product | undefined = products.find(p => p.style === lensOption.title);
+
+    // Create a virtual product representing the selected lens package
+    const lensPackageProduct: Product = {
+      id: `lens-pkg-${lensOption.title.replace(/\s+/g, '-')}`,
+      name: `${lensOption.title} Lenses`,
+      price: lensOption.price,
+      description: lensOption.features.join(', '),
+      type: 'lenses',
+      brand: 'Visionary',
+      style: lensProduct?.style || 'Single Vision',
+      material: 'Polycarbonate',
+      imageId: lensProduct?.imageId || 'lens-1',
+    };
+    
+    addToCart(lensPackageProduct);
+    setIsLensModalOpen(false);
+  };
+
+
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
 
   return (
@@ -140,6 +168,9 @@ function ProductGrid() {
             onOpenChange={setIsBrandModalOpen}
             onBrandSelect={handleBrandSelectFromModal}
         />
+        <Dialog open={isLensModalOpen} onOpenChange={setIsLensModalOpen}>
+            <LensSelectionModal onLensSelect={handleLensSelectFromModal} />
+        </Dialog>
         <div className="flex flex-col">
           <div className="relative h-64 w-full md:h-96">
             {heroImage && (
@@ -246,3 +277,5 @@ function HomePageSkeleton() {
     </div>
   )
 }
+
+    
