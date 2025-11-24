@@ -145,7 +145,7 @@ export const products: Product[] = [
   },
    {
     id: '13',
-    name: 'ClearView Single Vision',
+    name: 'Single Vision',
     price: 120,
     description: 'High-quality single vision lenses for clear sight at all distances. Made from durable polycarbonate.',
     type: 'lenses',
@@ -156,7 +156,7 @@ export const products: Product[] = [
   },
   {
     id: '14',
-    name: 'MultiView Progressives',
+    name: 'Progressives',
     price: 280,
     description: 'Seamless progressive lenses for perfect vision at near, intermediate, and far distances. No more lines.',
     type: 'lenses',
@@ -167,7 +167,7 @@ export const products: Product[] = [
   },
   {
     id: '15',
-    name: 'ScreenGuard Zero Power',
+    name: 'Zero Power',
     price: 90,
     description: 'For fashion or screen protection without correction.',
     type: 'lenses',
@@ -178,7 +178,7 @@ export const products: Product[] = [
   },
   {
     id: '17',
-    name: 'DualView Bifocals',
+    name: 'Bifocals',
     price: 220,
     description: 'Lined bifocal lenses for clear vision at two distances. A classic solution for presbyopia.',
     type: 'lenses',
