@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ScrollArea } from "./ui/scroll-area";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { useCart } from "@/context/cart-context";
+import type { Product } from "@/lib/products";
 
 type LensOption = {
     title: string;
@@ -49,6 +51,26 @@ interface PrescriptionFormProps {
 
 
 function PrescriptionForm({ lensType, lensOption, onBack, onClose }: PrescriptionFormProps) {
+    const { addToCart } = useCart();
+
+    const handleProceedToBuy = () => {
+        // Create a virtual product to add to the cart
+        const lensProduct: Product = {
+            id: `lens-${lensType.replace(/\s+/g, '-')}-${lensOption.title.replace(/\s+/g, '-')}`,
+            name: `${lensType} - ${lensOption.title}`,
+            price: lensOption.price,
+            description: lensOption.features.join(', '),
+            type: 'lenses',
+            brand: 'Visionary', // Or a more appropriate brand
+            style: lensType,
+            material: 'Polycarbonate', // Default material
+            imageId: 'lens-1' // A generic lens image
+        };
+
+        addToCart(lensProduct);
+        onClose(); // Close the modal after adding to cart
+    }
+
     return (
         <div className="flex flex-col h-full">
             <h2 className="text-xl font-headline text-center">{lensType} ({lensOption.title})</h2>
@@ -85,7 +107,7 @@ function PrescriptionForm({ lensType, lensOption, onBack, onClose }: Prescriptio
             <div className="mt-auto pt-6 flex justify-end gap-2">
                 <Button variant="outline" onClick={onBack}>Back</Button>
                 <Button onClick={onClose} variant="secondary">Close</Button>
-                <Button>Proceed to Buy</Button>
+                <Button onClick={handleProceedToBuy}>Proceed to Buy</Button>
             </div>
         </div>
     )
@@ -105,7 +127,7 @@ export function LensOptions({ lensType, onClose }: LensOptionsProps) {
     }
 
     return (
-        <ScrollArea className="h-96 pr-6">
+        <ScrollArea className="h-full pr-6">
             <div className="space-y-4">
                 {options.map((option, index) => (
                     <Card key={index}>

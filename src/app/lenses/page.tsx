@@ -85,7 +85,7 @@ export default function LensesPage() {
              <DialogDescription className="text-sm text-muted-foreground text-center">{selectedCategory?.description}</DialogDescription>
           </DialogHeader>
           <div className="flex-1 min-h-0">
-             {selectedCategory && <LensOptions lensType={selectedCategory.title} onClose={handleModalClose} />}
+             {selectedCategory && <LensOptions lensType={selectedCategory.title} onClose={() => setIsModalOpen(false)} />}
           </div>
         </DialogContent>
       </Dialog>
