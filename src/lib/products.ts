@@ -5,7 +5,7 @@ export type Product = {
   description: string;
   type: 'frames' | 'sunglasses' | 'lenses';
   brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary';
-  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Zero Power' | 'Single Vision' | 'Bifocal' | 'Progressive' | 'Blue Light';
+  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Zero Power' | 'Single Vision' | 'Bifocal' | 'Progressive';
   material: 'Metal' | 'Acetate' | 'Titanium' | 'Polycarbonate';
   imageId: string;
 };
@@ -167,9 +167,9 @@ export const products: Product[] = [
   },
   {
     id: '15',
-    name: 'ScreenGuard Blue Light',
+    name: 'ScreenGuard Zero Power',
     price: 90,
-    description: 'For fashion or screen protection without correction. Protect your eyes from digital strain.',
+    description: 'For fashion or screen protection without correction.',
     type: 'lenses',
     brand: 'Visionary',
     style: 'Zero Power',
