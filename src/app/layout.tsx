@@ -20,7 +20,7 @@ const fontBody = PT_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Visionary Vault',
+  title: 'Technoii',
   description: 'Elegant e-commerce for frames, lenses, and sunglasses.',
 };
 

@@ -9,11 +9,11 @@ export function Footer() {
           <div className="flex items-center space-x-2">
             <Glasses className="h-6 w-6 text-primary" />
             <span className="inline-block font-headline text-xl font-bold">
-              Visionary Vault
+              Technoii
             </span>
           </div>
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Visionary Vault. All rights reserved.
+            © {new Date().getFullYear()} Technoii. All rights reserved.
           </p>
           <div className="flex items-center space-x-4">
             <Link href="#" aria-label="Twitter">

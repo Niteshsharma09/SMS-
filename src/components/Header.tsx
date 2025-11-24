@@ -22,7 +22,7 @@ export function Header() {
           <Link href="/" className="flex items-center space-x-2">
             <Glasses className="h-6 w-6 text-primary" />
             <span className="inline-block font-headline text-xl font-bold">
-              Visionary Vault
+              Technoii
             </span>
           </Link>
         </div>
