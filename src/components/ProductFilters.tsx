@@ -13,6 +13,8 @@ interface ProductFiltersProps {
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
 }
 
+const lensStyles = ['Single Vision', 'Bifocal', 'Progressive', 'Zero Power'];
+
 export function ProductFilters({ filters, setFilters }: ProductFiltersProps) {
   const handleCheckboxChange = (category: keyof Filters, value: string) => {
     setFilters((prevFilters) => {
