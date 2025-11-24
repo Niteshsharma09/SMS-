@@ -5,7 +5,7 @@ export type Product = {
   description: string;
   type: 'frames' | 'sunglasses' | 'lenses';
   brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary';
-  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Basic' | 'Single Vision' | 'Bifocal' | 'Progressive' | 'Blue Light';
+  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Zero Power' | 'Single Vision' | 'Bifocal' | 'Progressive' | 'Blue Light';
   material: 'Metal' | 'Acetate' | 'Titanium' | 'Polycarbonate';
   imageId: string;
 };
@@ -168,24 +168,13 @@ export const products: Product[] = [
   {
     id: '15',
     name: 'ScreenGuard Blue Light',
-    price: 170,
-    description: 'Protect your eyes from digital strain with our advanced blue light filtering lenses. A must-have for the modern world.',
+    price: 90,
+    description: 'For fashion or screen protection without correction. Protect your eyes from digital strain.',
     type: 'lenses',
     brand: 'Visionary',
-    style: 'Blue Light',
+    style: 'Zero Power',
     material: 'Polycarbonate',
     imageId: 'lens-3',
-  },
-  {
-    id: '16',
-    name: 'Basic Lenses',
-    price: 50,
-    description: 'Standard single-vision lenses for basic prescription needs. A reliable and affordable choice.',
-    type: 'lenses',
-    brand: 'Visionary',
-    style: 'Basic',
-    material: 'Polycarbonate',
-    imageId: 'lens-1',
   },
   {
     id: '17',
@@ -196,7 +185,7 @@ export const products: Product[] = [
     brand: 'Visionary',
     style: 'Bifocal',
     material: 'Polycarbonate',
-    imageId: 'lens-2',
+    imageId: 'lens-bifocal',
   }
 ];
 

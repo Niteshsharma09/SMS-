@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { getProductById } from '@/lib/products';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -22,6 +22,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const [isTryOnOpen, setIsTryOnOpen] = useState(false);
   const product = getProductById(params.id);
   const { addToCart } = useCart();
+  const router = useRouter();
   
   if (!product) {
     notFound();
@@ -130,7 +131,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <Button size="lg" variant="outline" className="flex-1">
+            <Button size="lg" variant="outline" className="flex-1" onClick={() => router.push('/lenses')}>
               Select Lens
             </Button>
             <Button size="lg" className="flex-1" onClick={() => addToCart(product)}>

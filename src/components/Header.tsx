@@ -41,6 +41,20 @@ export function Header() {
               Technoii
             </span>
           </Link>
+           <nav className="hidden gap-6 md:flex">
+             <Link
+              href="/"
+              className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Eyewear
+            </Link>
+            <Link
+              href="/lenses"
+              className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Lenses
+            </Link>
+          </nav>
         </div>
 
         <div className="flex flex-1 items-center justify-center px-4">

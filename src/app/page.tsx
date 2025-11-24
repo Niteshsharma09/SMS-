@@ -26,7 +26,9 @@ function ProductGrid() {
   });
 
   const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
+    return products
+    .filter(p => p.type !== 'lenses') // Exclude lenses from the main grid
+    .filter((product) => {
       // Search query filter
       const matchesSearch = searchQuery
         ? product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
