@@ -70,37 +70,49 @@ function PrescriptionForm({ lensType, lensOption, onBack, onProceed, product }: 
     return (
         <div className="flex flex-col h-full">
             <h2 className="text-xl font-headline text-center">{lensType} ({lensOption.title})</h2>
-            <p className="text-center text-muted-foreground text-sm mt-2 mb-6">
+            <p className="text-center text-muted-foreground text-sm mt-2 mb-4">
                 Upload a prescription for the selected lens type to proceed, or you can manually enter your eye vision details.
             </p>
 
-            <div className="space-y-4">
-                <div className="space-y-2">
-                    <Label htmlFor="prescription-file">Upload Prescription</Label>
-                    <Input id="prescription-file" type="file" />
-                </div>
-                
-                <div className="flex items-center my-6">
-                    <div className="flex-grow border-t border-muted" />
-                    <span className="mx-4 text-xs uppercase text-muted-foreground">Or</span>
-                    <div className="flex-grow border-t border-muted" />
-                </div>
-                
-                <p className="text-center font-semibold">Manually Enter Eye Vision</p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <ScrollArea className="flex-1 pr-6 -mr-6">
+                <div className="space-y-4">
                     <div className="space-y-2">
-                        <Label htmlFor="left-eye">Left Eye (DV-OD)</Label>
-                        <Input id="left-eye" placeholder="e.g., -2.00" />
+                        <Label htmlFor="prescription-file">Upload Prescription</Label>
+                        <Input id="prescription-file" type="file" />
                     </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="right-eye">Right Eye (DV-OS)</Label>
-                        <Input id="right-eye" placeholder="e.g., -1.75" />
+                    
+                    <div className="flex items-center my-4">
+                        <div className="flex-grow border-t border-muted" />
+                        <span className="mx-4 text-xs uppercase text-muted-foreground">Or</span>
+                        <div className="flex-grow border-t border-muted" />
+                    </div>
+                    
+                    <p className="text-center font-semibold">Manually Enter Eye Vision</p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="left-eye">Left Eye (DV-OD)</Label>
+                            <Input id="left-eye" placeholder="e.g., -2.00" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="right-eye">Right Eye (DV-OS)</Label>
+                            <Input id="right-eye" placeholder="e.g., -1.75" />
+                        </div>
+                    </div>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="left-eye-add">Left Eye (ADD)</Label>
+                            <Input id="left-eye-add" placeholder="e.g., +1.50" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="right-eye-add">Right Eye (ADD)</Label>
+                            <Input id="right-eye-add" placeholder="e.g., +1.50" />
+                        </div>
                     </div>
                 </div>
-            </div>
+            </ScrollArea>
 
-            <div className="mt-auto pt-6 flex justify-end gap-2">
+            <div className="mt-auto pt-6 flex justify-end gap-2 border-t">
                 <Button variant="outline" onClick={onBack}>Back</Button>
                 <Button onClick={handleProceedToBuy}>Proceed to Buy</Button>
             </div>
