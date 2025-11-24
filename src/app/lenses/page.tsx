@@ -5,7 +5,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { LensOptions } from "@/components/LensOptions";
 
 type LensCategory = {
@@ -46,6 +46,14 @@ export default function LensesPage() {
     setIsModalOpen(true);
   }
 
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    // A small delay to allow the modal to close before resetting the content
+    setTimeout(() => {
+        setSelectedCategory(null);
+    }, 300);
+  }
+
   return (
     <div className="bg-background text-foreground">
       <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
@@ -71,12 +79,14 @@ export default function LensesPage() {
       </div>
       
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[600px]">
+        <DialogContent className="sm:max-w-[600px] h-[70vh] flex flex-col">
           <DialogHeader>
             <DialogTitle className="font-headline text-2xl text-center mb-2">{selectedCategory?.title}</DialogTitle>
-             {selectedCategory && <p className="text-sm text-muted-foreground text-center">{selectedCategory.description}</p>}
+             <DialogDescription className="text-sm text-muted-foreground text-center">{selectedCategory?.description}</DialogDescription>
           </DialogHeader>
-          {selectedCategory && <LensOptions lensType={selectedCategory.title} />}
+          <div className="flex-1 min-h-0">
+             {selectedCategory && <LensOptions lensType={selectedCategory.title} onClose={handleModalClose} />}
+          </div>
         </DialogContent>
       </Dialog>
     </div>
