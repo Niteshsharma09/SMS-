@@ -14,9 +14,8 @@ export type Filters = {
   type: string[];
   brand: string[];
   style: string[];
+  lensStyle: string[];
 };
-
-const lensStyles = ['Single Vision', 'Bifocal', 'Progressive', 'Zero Power'];
 
 function ProductGrid() {
   const searchParams = useSearchParams();
@@ -25,13 +24,13 @@ function ProductGrid() {
     type: [],
     brand: [],
     style: [],
+    lensStyle: [],
   });
 
   const filteredProducts = useMemo(() => {
     return products
-      .filter((product) => product.type !== 'lenses')
       .filter((product) => {
-        const { type, brand, style } = filters;
+        const { type, brand, style, lensStyle } = filters;
         
         // Search query filter
         const matchesSearch = searchQuery
@@ -44,12 +43,21 @@ function ProductGrid() {
         if (type.length > 0 && !type.includes(product.type)) {
           return false;
         }
+
         if (brand.length > 0 && !brand.includes(product.brand)) {
           return false;
         }
-        if (style.length > 0 && !style.includes(product.style)) {
-          return false;
+
+        // Handle frame styles
+        if (product.type !== 'lenses' && style.length > 0 && !style.includes(product.style)) {
+            return false;
         }
+
+        // Handle lens styles, only if 'lenses' type is selected
+        if (product.type === 'lenses' && lensStyle.length > 0 && !lensStyle.includes(product.style)) {
+            return false;
+        }
+        
         return true;
       });
   }, [filters, searchQuery]);
