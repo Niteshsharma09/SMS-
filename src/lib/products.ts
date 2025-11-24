@@ -5,7 +5,7 @@ export type Product = {
   description: string;
   type: 'frames' | 'sunglasses' | 'lenses';
   brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary';
-  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Single Vision' | 'Progressive' | 'Blue Light';
+  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Basic' | 'Single Vision' | 'Bifocal' | 'Progressive' | 'Blue Light';
   material: 'Metal' | 'Acetate' | 'Titanium' | 'Polycarbonate';
   imageId: string;
 };
@@ -175,6 +175,28 @@ export const products: Product[] = [
     style: 'Blue Light',
     material: 'Polycarbonate',
     imageId: 'lens-3',
+  },
+  {
+    id: '16',
+    name: 'Basic Lenses',
+    price: 50,
+    description: 'Standard single-vision lenses for basic prescription needs. A reliable and affordable choice.',
+    type: 'lenses',
+    brand: 'Visionary',
+    style: 'Basic',
+    material: 'Polycarbonate',
+    imageId: 'lens-1',
+  },
+  {
+    id: '17',
+    name: 'DualView Bifocals',
+    price: 220,
+    description: 'Lined bifocal lenses for clear vision at two distances. A classic solution for presbyopia.',
+    type: 'lenses',
+    brand: 'Visionary',
+    style: 'Bifocal',
+    material: 'Polycarbonate',
+    imageId: 'lens-2',
   }
 ];
 
