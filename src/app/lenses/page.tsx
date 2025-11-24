@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from "next/image";
@@ -83,15 +84,10 @@ export default function LensesPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {lensCategories.slice(0, 2).map((category) => (
-              <LensCard key={category.title} category={category} onClick={() => handleCardClick(category)} isSmall />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
+            {lensCategories.map((category) => (
+              <LensCard key={category.title} category={category} onClick={() => handleCardClick(category)} />
             ))}
-          </div>
-          {lensCategories.slice(2).map((category) => (
-             <LensCard key={category.title} category={category} onClick={() => handleCardClick(category)} />
-          ))}
         </div>
       </div>
       
@@ -110,32 +106,27 @@ export default function LensesPage() {
   );
 }
 
-function LensCard({ category, isSmall = false, onClick }: { category: LensCategory; isSmall?: boolean; onClick: () => void; }) {
+function LensCard({ category, onClick }: { category: LensCategory; onClick: () => void; }) {
     const image = PlaceHolderImages.find(img => img.id === category.imageId);
     return (
     <div
         onClick={onClick}
-        className={cn(
-        "relative group overflow-hidden rounded-lg cursor-pointer flex flex-col justify-end p-6 text-white bg-slate-900",
-        isSmall ? "h-48" : "h-96"
-    )}>
+        className="relative group overflow-hidden rounded-lg cursor-pointer flex flex-col justify-end p-6 text-white bg-slate-900 h-64 md:h-80"
+    >
       {image && (
           <Image
             src={image.imageUrl}
             alt={category.title}
             fill
-            className={cn(
-                "object-cover transition-transform duration-500 ease-in-out group-hover:scale-105",
-                 isSmall ? "" : "opacity-30 group-hover:opacity-40"
-            )}
+            className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105 opacity-30 group-hover:opacity-40"
             data-ai-hint={image.imageHint}
           />
       )}
-       <div className={cn("absolute inset-0", isSmall ? "bg-gradient-to-t from-black/60 to-transparent" : "bg-black/40")}></div>
+       <div className="absolute inset-0 bg-black/40"></div>
 
       <div className="relative z-10 transition-transform duration-300 ease-in-out group-hover:translate-y-[-8px]">
-        <h3 className={cn("font-headline font-semibold", isSmall ? "text-2xl" : "text-4xl")}>{category.title}</h3>
-        <p className={cn("mt-2", isSmall ? "text-sm" : "text-base", "text-neutral-300 max-w-md")}>{category.description}</p>
+        <h3 className="font-headline font-semibold text-3xl">{category.title}</h3>
+        <p className="mt-2 text-base text-neutral-300 max-w-md">{category.description}</p>
         <div className="mt-4">
             <div className="inline-flex items-center gap-2 text-primary font-semibold">
                 Select Lens <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
