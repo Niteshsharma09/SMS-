@@ -1,0 +1,139 @@
+/**
+ * Core Philosophy: This ruleset enforces a strict user-ownership model for an
+ * e-commerce application. Each user has exclusive control over their personal
+ * data, including their profile, shopping cart, and order history. Publicly
+ * accessible data, such as the product catalog, is segregated and read-only
+ * for clients.
+ *
+ * Data Structure: User-specific data (profiles, carts, orders) is nested
+ * under the `/users/{userId}` path, creating a clear and secure data boundary
+ * for each user. The product catalog is stored in a separate top-level
+ * `/products` collection, allowing for public read access without exposing
+ * user data.
+ *
+ * Key Security Decisions:
+ * - User data is private: A user can only access documents within their own
+ *   `/users/{userId}` data tree.
+ * - User listing is disabled: It is not possible for any client to query the
+ *   list of all application users.
+ * - Public data is read-only: The `/products` collection is readable by
+ *   anyone, but cannot be modified by clients. This assumes product data is
+ *   managed by a trusted backend service or admin console.
+ * - Secure Self-Signup: A newly authenticated user is permitted to create
+ *   their own user profile document.
+ *
+ * Denormalization for Authorization: To ensure fast and secure authorization,
+ * user-specific documents like `cartItems` and `orders` contain a denormalized
+ * `userId` field. This allows security rules to validate ownership directly from
+ * the document's data, avoiding slow and costly `get()` calls to parent documents.
+ *
+ * Structural Segregation: The ruleset leverages separate collections for data
+ * with different access patterns. Private user data (`/users/{userId}/...`)
+ * is structurally separated from public data (`/products`). This design is
+ * inherently more secure and performant for list operations than using a
+ * single collection with flags to denote access levels.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for reusable logic
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    // Checks for ownership on an existing document. Used for update/delete.
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * @description Rules for a user's profile document.
+     * @path /users/{userId}
+     * @allow (create) An authenticated user can create their own profile document. `auth.uid: "user_abc"`, `path: /users/user_abc`.
+     * @allow (get) An authenticated user can read their own profile. `auth.uid: "user_abc"`, `path: /users/user_abc`.
+     * @deny (list) No user can list all user profiles in the database.
+     * @deny (update) A user cannot update another user's profile. `auth.uid: "user_xyz"`, `path: /users/user_abc`.
+     * @principle Restricts access to a user's own data tree and allows for self-creation of a profile.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Rules for the public product catalog.
+     * @path /products/{productId}
+     * @allow (get) Any user, including unauthenticated ones, can view a product. `auth.uid: null`, `path: /products/prod_123`.
+     * @allow (list) Any user can query the list of all products. `auth.uid: null`.
+     * @deny (create) No client can create a new product. This must be done by a backend admin process.
+     * @deny (update) No client can update an existing product.
+     * @principle Secures a public-read collection by denying all client-side write operations.
+     */
+    match /products/{productId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Rules for items in a user's shopping cart.
+     * @path /users/{userId}/cartItems/{cartItemId}
+     * @allow (create) A user can add an item to their own cart. `auth.uid: "user_abc"`, `path: /users/user_abc/cartItems/item_1`.
+     * @allow (list) A user can list the items in their own cart. `auth.uid: "user_abc"`, `path: /users/user_abc/cartItems`.
+     * @deny (get) A user cannot read a cart item from another user's cart. `auth.uid: "user_xyz"`, `path: /users/user_abc/cartItems/item_1`.
+     * @deny (delete) A user cannot delete an item from another user's cart. `auth.uid: "user_xyz"`, `path: /users/user_abc/cartItems/item_1`.
+     * @principle Enforces document ownership within a user's private data tree and validates relational integrity via the 'userId' field.
+     */
+    match /users/{userId}/cartItems/{cartItemId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Rules for a user's order history.
+     * @path /users/{userId}/orders/{orderId}
+     * @allow (create) A user can create a new order for themselves. `auth.uid: "user_abc"`, `path: /users/user_abc/orders/order_1`.
+     * @allow (list) A user can list their own past orders. `auth.uid: "user_abc"`, `path: /users/user_abc/orders`.
+     * @deny (get) A user cannot read another user's order. `auth.uid: "user_xyz"`, `path: /users/user_abc/orders/order_1`.
+     * @deny (update) A user cannot modify another user's order. `auth.uid: "user_xyz"`, `path: /users/user_abc/orders/order_1`.
+     * @principle Enforces document ownership for a user's sensitive order data and validates relational integrity.
+     */
+    match /users/{userId}/orders/{orderId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Rules for the individual items within a specific order.
+     * @path /users/{userId}/orders/{orderId}/orderItems/{orderItemId}
+     * @allow (create) A user can add items to their own order during creation. `auth.uid: "user_abc"`, `path: /users/user_abc/orders/order_1/orderItems/item_1`.
+     * @allow (list) A user can list the items within one of their own orders. `auth.uid: "user_abc"`, `path: /users/user_abc/orders/order_1/orderItems`.
+     * @deny (get) A user cannot read an order item from another user's order. `auth.uid: "user_xyz"`, `path: /users/user_abc/orders/order_1/orderItems/item_1`.
+     * @deny (update) Order items are immutable and cannot be updated.
+     * @principle Inherits ownership from the path and ensures data integrity by linking order items to their parent order.
+     */
+    match /users/{userId}/orders/{orderId}/orderItems/{orderItemId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.orderId == orderId;
+      allow update: if false; // Order items are typically immutable post-creation
+      allow delete: if false; // Order items should not be deletable by clients
+    }
+  }
+}
