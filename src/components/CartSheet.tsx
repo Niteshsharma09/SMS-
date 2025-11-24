@@ -26,6 +26,10 @@ interface CartSheetProps {
 export function CartSheet({ isOpen, onOpenChange }: CartSheetProps) {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, itemCount } = useCart();
 
+  const getCartItemId = (item: any) => {
+    return item.lens ? `${item.product.id}_${item.lens.title.replace(/\s+/g, '-')}` : item.product.id;
+  };
+
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent className="flex w-full flex-col pr-0 sm:max-w-lg">
@@ -38,8 +42,11 @@ export function CartSheet({ isOpen, onOpenChange }: CartSheetProps) {
               <div className="flex flex-col gap-6">
                 {cartItems.map(item => {
                   const image = PlaceHolderImages.find(img => img.id === item.product.imageId);
+                  const cartItemId = getCartItemId(item);
+                  const itemPrice = item.product.price + (item.lens?.price || 0);
+
                   return (
-                    <div key={item.product.id} className="flex items-center gap-4">
+                    <div key={cartItemId} className="flex items-center gap-4">
                        <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-md">
                         {image && (
                            <Image
@@ -53,17 +60,18 @@ export function CartSheet({ isOpen, onOpenChange }: CartSheetProps) {
                        </div>
                       <div className="flex-1">
                         <h3 className="font-semibold">{item.product.name}</h3>
-                        <p className="text-sm text-muted-foreground">Rs{item.product.price.toFixed(2)}</p>
+                        {item.lens && <p className="text-sm text-muted-foreground">+ {item.lens.title}</p>}
+                        <p className="text-sm text-muted-foreground">Rs{itemPrice.toFixed(2)}</p>
                         <div className="mt-2 flex items-center gap-2">
                           <Input
                             type="number"
                             min="1"
                             value={item.quantity}
-                            onChange={(e) => updateQuantity(item.product.id, parseInt(e.target.value, 10))}
+                            onChange={(e) => updateQuantity(cartItemId, parseInt(e.target.value, 10))}
                             className="h-8 w-16"
                             aria-label={`Quantity for ${item.product.name}`}
                           />
-                          <Button variant="ghost" size="icon" onClick={() => removeFromCart(item.product.id)} aria-label={`Remove ${item.product.name}`}>
+                          <Button variant="ghost" size="icon" onClick={() => removeFromCart(cartItemId)} aria-label={`Remove ${item.product.name}`}>
                             <Trash2 className="h-4 w-4 text-muted-foreground" />
                           </Button>
                         </div>

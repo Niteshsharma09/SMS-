@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { getProductById, Product } from '@/lib/products';
+import { getProductById } from '@/lib/products';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/cart-context';
@@ -53,18 +53,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   };
 
   const handleAddToCart = () => {
-    if (selectedLens) {
-      const bundledProduct: Product = {
-        ...product,
-        id: `${product.id}_${selectedLens.title.replace(/\s+/g, '-')}`,
-        name: `${product.name} with ${selectedLens.title} lenses`,
-        price: product.price + selectedLens.price,
-        description: `${product.description} Includes ${selectedLens.title}: ${selectedLens.features.join(', ')}.`,
-      };
-      addToCart(bundledProduct);
-    } else {
-      addToCart(product);
-    }
+    addToCart(product, 1, selectedLens || undefined);
   };
   
   const totalCost = product.price + (selectedLens?.price || 0);
