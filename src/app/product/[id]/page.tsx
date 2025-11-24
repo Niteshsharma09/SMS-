@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { VirtualTryOn } from '@/components/VirtualTryOn';
+import { cn } from '@/lib/utils';
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const [isTryOnOpen, setIsTryOnOpen] = useState(false);
@@ -32,22 +33,44 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   // For the gallery, we'll just use the same image 4 times as a placeholder
   const galleryImages = image ? [image, image, image, image] : [];
 
+  const [zoom, setZoom] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setPosition({ x, y });
+  };
+
+
   return (
     <div className="container mx-auto max-w-7xl py-8 px-4 md:py-12">
       <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
         {/* Image Gallery */}
         <div className="flex flex-row-reverse gap-4">
-            <div className="flex-1 relative aspect-square w-full overflow-hidden rounded-lg shadow-lg">
-            {activeImage && (
-                <Image
-                src={activeImage}
-                alt={product.name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-                />
-            )}
+             <div 
+              className="flex-1 relative aspect-square w-full overflow-hidden rounded-lg shadow-lg"
+              onMouseEnter={() => setZoom(true)}
+              onMouseLeave={() => setZoom(false)}
+              onMouseMove={handleMouseMove}
+             >
+                {activeImage && (
+                    <Image
+                    src={activeImage}
+                    alt={product.name}
+                    fill
+                    className={cn(
+                        "object-cover transition-transform duration-300 ease-in-out",
+                        zoom ? "scale-[2]" : "scale-100"
+                    )}
+                    style={{
+                        transformOrigin: `${position.x}% ${position.y}%`,
+                    }}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                    />
+                )}
             </div>
             <div className="flex flex-col gap-2">
             {galleryImages.map((img, index) => (
