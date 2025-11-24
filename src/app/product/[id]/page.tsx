@@ -108,7 +108,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <span className="text-sm text-muted-foreground">4.6 Ratings</span>
           </div>
 
-          <p className="mt-4 text-3xl font-semibold text-primary">₹{product.price.toFixed(2)}</p>
+          <p className="mt-4 text-3xl font-semibold text-primary">Rs{product.price.toFixed(2)}</p>
 
           <div className="mt-6">
             <h3 className="font-semibold text-lg flex items-center gap-2"><Tag className="w-5 h-5"/>Available Offers</h3>

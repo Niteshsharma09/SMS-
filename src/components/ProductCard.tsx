@@ -41,7 +41,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <p className="text-sm capitalize text-muted-foreground">{product.type}</p>
         </Link>
         <p className="mt-2 text-xl font-semibold text-primary">
-          ₹{product.price.toFixed(2)}
+          Rs{product.price.toFixed(2)}
         </p>
       </CardContent>
       <CardFooter className="p-4 pt-0">
