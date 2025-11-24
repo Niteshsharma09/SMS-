@@ -7,6 +7,7 @@ import { Footer } from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { CartProvider } from '@/context/cart-context';
 import { SidebarProvider } from '@/components/ui/sidebar';
+import { FirebaseClientProvider } from '@/firebase/client-provider';
 
 const fontHeadline = Playfair_Display({
   subsets: ['latin'],
@@ -38,16 +39,18 @@ export default function RootLayout({
           fontBody.variable
         )}
       >
-        <CartProvider>
-          <SidebarProvider>
-            <div className="relative flex min-h-dvh flex-col bg-background">
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-            <Toaster />
-          </SidebarProvider>
-        </CartProvider>
+        <FirebaseClientProvider>
+          <CartProvider>
+            <SidebarProvider>
+              <div className="relative flex min-h-dvh flex-col bg-background">
+                <Header />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </div>
+              <Toaster />
+            </SidebarProvider>
+          </CartProvider>
+        </FirebaseClientProvider>
       </body>
     </html>
   );

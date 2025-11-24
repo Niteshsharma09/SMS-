@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { SidebarTrigger } from './ui/sidebar';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Input } from './ui/input';
+import { UserNav } from './UserNav';
 
 export function Header() {
   const { itemCount } = useCart();
@@ -76,6 +77,7 @@ export function Header() {
               </span>
             )}
           </Button>
+          <UserNav />
         </div>
       </div>
       <CartSheet isOpen={isCartOpen} onOpenChange={setIsCartOpen} />
