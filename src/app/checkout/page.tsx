@@ -9,9 +9,11 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CheckoutForm } from '@/components/CheckoutForm';
 import { useEffect, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
+import { Product } from '@/lib/products';
+import { LensOption } from '@/components/LensOptions';
 
 export default function CheckoutPage() {
-  const { cartItems, cartTotal, lensTotal, itemCount } = useCart();
+  const { cartItems, cartTotal, framesTotal, lensesTotal, itemCount } = useCart();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -19,9 +21,7 @@ export default function CheckoutPage() {
   }, []);
 
   const shippingCost = itemCount > 0 ? 5.00 : 0;
-  const subtotal = cartTotal - lensTotal;
-  const netAmount = cartTotal;
-  const totalPayable = netAmount + shippingCost;
+  const totalPayable = cartTotal + shippingCost;
   
   const heroImage = PlaceHolderImages.find((img) => img.id === 'checkout-hero');
 
@@ -41,6 +41,25 @@ export default function CheckoutPage() {
         </Button>
       </div>
     );
+  }
+  
+  const renderCartItem = (product: Product, quantity: number, price: number, isLens = false) => {
+    const image = PlaceHolderImages.find(img => img.id === product.imageId);
+    return (
+        <div key={product.id} className="flex items-start gap-4">
+            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md">
+                {image && <Image src={image.imageUrl} alt={product.name} fill className="object-cover" />}
+            </div>
+            <div className="flex-1">
+                <p className="font-semibold">{product.name}</p>
+                {isLens ?
+                  <p className="text-sm text-muted-foreground">Lens Selection</p> :
+                  <p className="text-sm text-muted-foreground">Qty: {quantity}</p>
+                }
+            </div>
+            <p className="font-medium text-right">Rs{(price * quantity).toFixed(2)}</p>
+        </div>
+    )
   }
 
   return (
@@ -67,42 +86,46 @@ export default function CheckoutPage() {
         <div className="lg:order-2">
           <h2 className="font-headline text-2xl mb-4">Order Summary</h2>
           <div className="rounded-lg border bg-card p-6">
-            <ScrollArea className="h-48 pr-4">
+            <ScrollArea className="h-64 pr-4">
+              <div className="space-y-6">
               {cartItems.map((item) => {
-                 const image = PlaceHolderImages.find(img => img.id === item.product.imageId);
                  const cartItemId = item.lens ? `${item.product.id}_${item.lens.title.replace(/\s+/g, '-')}` : item.product.id;
-                 const itemPrice = item.product.price + (item.lens?.price || 0);
+                 
+                 const lensAsProduct: Product | null = item.lens ? {
+                    id: `lens-for-${item.product.id}`,
+                    name: item.lens.title,
+                    price: item.lens.price,
+                    description: item.lens.features.join(', '),
+                    type: 'lenses',
+                    brand: 'Visionary',
+                    style: 'Single Vision', // This needs to be more dynamic if possible
+                    material: 'Polycarbonate',
+                    imageId: 'lens-1' // Generic lens image
+                 } : null;
+
                  return (
-                  <div key={cartItemId} className="flex items-center justify-between py-4 border-b last:border-b-0">
-                     <div className="flex items-center gap-4">
-                        <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md">
-                          {image && <Image src={image.imageUrl} alt={item.product.name} fill className="object-cover" />}
-                        </div>
-                        <div>
-                            <p className="font-semibold">{item.product.name}</p>
-                             {item.lens && <p className="text-sm text-muted-foreground">+ {item.lens.title}</p>}
-                            <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
-                        </div>
-                     </div>
-                     <p className="font-medium">Rs{(itemPrice * item.quantity).toFixed(2)}</p>
+                  <div key={cartItemId} className="space-y-4 py-4 border-b last:border-b-0">
+                    {renderCartItem(item.product, item.quantity, item.product.price)}
+                    {item.lens && lensAsProduct && renderCartItem(lensAsProduct, item.quantity, item.lens.price, true)}
                   </div>
                  )
               })}
+              </div>
             </ScrollArea>
             <div className="mt-6 space-y-2 pt-4">
                 <div className="flex justify-between text-muted-foreground">
-                    <span>Total Amount</span>
-                    <span>Rs{subtotal.toFixed(2)}</span>
+                    <span>Frames Total</span>
+                    <span>Rs{framesTotal.toFixed(2)}</span>
                 </div>
-                 {lensTotal > 0 && (
+                 {lensesTotal > 0 && (
                   <div className="flex justify-between text-muted-foreground">
-                      <span>Lens Charges</span>
-                      <span>+Rs{lensTotal.toFixed(2)}</span>
+                      <span>Lenses Total</span>
+                      <span>+Rs{lensesTotal.toFixed(2)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-muted-foreground">
-                    <span>Net Amount</span>
-                    <span>Rs{netAmount.toFixed(2)}</span>
+                    <span>Subtotal</span>
+                    <span>Rs{cartTotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                     <span>Shipping</span>

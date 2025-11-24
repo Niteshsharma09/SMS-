@@ -19,7 +19,8 @@ interface CartContextType {
   clearCart: () => void;
   cartTotal: number;
   itemCount: number;
-  lensTotal: number;
+  framesTotal: number;
+  lensesTotal: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -88,9 +89,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return total + itemPrice * item.quantity;
   }, 0);
 
-  const lensTotal = cartItems.reduce((total, item) => {
-    return total + (item.lens?.price || 0) * item.quantity;
+  const framesTotal = cartItems.reduce((total, item) => {
+    // Only add product price if it's not a lens-only product
+    if(item.product.type !== 'lenses') {
+        return total + item.product.price * item.quantity;
+    }
+    return total;
   }, 0);
+
+  const lensesTotal = cartItems.reduce((total, item) => {
+    if(item.product.type === 'lenses') {
+        return total + item.product.price * item.quantity;
+    }
+    if (item.lens) {
+        return total + (item.lens.price || 0) * item.quantity;
+    }
+    return total;
+  }, 0);
+
 
   const itemCount = cartItems.reduce((count, item) => count + item.quantity, 0);
 
@@ -104,7 +120,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         clearCart,
         cartTotal,
         itemCount,
-        lensTotal
+        framesTotal,
+        lensesTotal
       }}
     >
       {children}
