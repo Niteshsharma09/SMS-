@@ -82,6 +82,39 @@ export const products: Product[] = [
     imageId: 'frame-6',
   },
   {
+    id: '21',
+    name: 'Clubmaster Classic',
+    price: 215,
+    description: 'A timeless design that combines retro and modern sophistication. Featuring a distinct browline.',
+    type: 'frames',
+    brand: 'Ray-Ban',
+    style: 'Browline',
+    material: 'Acetate',
+    imageId: 'frame-7'
+  },
+  {
+    id: '22',
+    name: 'Airdrop',
+    price: 190,
+    description: 'Lightweight and durable O Matter™ frames with a clean, minimalist design for everyday wear.',
+    type: 'frames',
+    brand: 'Oakley',
+    style: 'Rectangular',
+    material: 'Polycarbonate',
+    imageId: 'frame-8'
+  },
+  {
+    id: '23',
+    name: 'Timeless Elegance',
+    price: 170,
+    description: 'A beautifully crafted metal frame with a delicate design, perfect for a sophisticated and elegant look.',
+    type: 'frames',
+    brand: 'Vogue',
+    style: 'Cat-Eye',
+    material: 'Metal',
+    imageId: 'frame-9'
+  },
+  {
     id: '7',
     name: 'Icon',
     price: 155,
