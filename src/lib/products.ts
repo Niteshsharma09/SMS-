@@ -4,8 +4,8 @@ export type Product = {
   price: number;
   description: string;
   type: 'frames' | 'sunglasses' | 'lenses';
-  brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary' | 'Titan' | 'Fastrack' | 'Technoii' | 'Lauredale';
-  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Zero Power' | 'Single Vision' | 'Bifocal' | 'Progressive';
+  brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary' | 'Titan' | 'Fastrack' | 'Technoii' | 'Lauredale' | 'NVG';
+  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Zero Power' | 'Single Vision' | 'Bifocal' | 'Progressive' | 'Photochromic' | 'High-Index';
   material: 'Metal' | 'Acetate' | 'Titanium' | 'Polycarbonate';
   imageId: string;
 };
@@ -156,6 +156,50 @@ export const products: Product[] = [
     material: 'Metal',
     imageId: 'frame-13'
   },
+   {
+    id: '28',
+    name: 'Bold Square',
+    price: 140,
+    description: 'Make a statement with these bold square frames from NVG.',
+    type: 'frames',
+    brand: 'NVG',
+    style: 'Rectangular',
+    material: 'Acetate',
+    imageId: 'frame-14'
+  },
+  {
+    id: '29',
+    name: 'Titan Wayfarer',
+    price: 160,
+    description: 'Classic wayfarer style meets Titan\'s engineering.',
+    type: 'frames',
+    brand: 'Titan',
+    style: 'Wayfarer',
+    material: 'Polycarbonate',
+    imageId: 'frame-15'
+  },
+  {
+    id: '30',
+    name: 'Technoii Smart',
+    price: 350,
+    description: 'The future of eyewear. Smart glasses by Technoii.',
+    type: 'frames',
+    brand: 'Technoii',
+    style: 'Rectangular',
+    material: 'Titanium',
+    imageId: 'frame-16'
+  },
+  {
+    id: '31',
+    name: 'Lauredale Luxe',
+    price: 280,
+    description: 'Luxury cat-eye frames in plated gold from Lauredale.',
+    type: 'frames',
+    brand: 'Lauredale',
+    style: 'Cat-Eye',
+    material: 'Metal',
+    imageId: 'frame-17'
+  },
   {
     id: '7',
     name: 'Icon',
@@ -255,6 +299,61 @@ export const products: Product[] = [
     material: 'Metal',
     imageId: 'sun-2',
   },
+  {
+    id: '32',
+    name: 'Titan Square',
+    price: 180,
+    description: 'Modern square sunglasses from Titan.',
+    type: 'sunglasses',
+    brand: 'Titan',
+    style: 'Rectangular',
+    material: 'Titanium',
+    imageId: 'sun-7'
+  },
+  {
+    id: '33',
+    name: 'Fastrack Sport',
+    price: 130,
+    description: 'Sporty and durable sunglasses from Fastrack.',
+    type: 'sunglasses',
+    brand: 'Fastrack',
+    style: 'Sport',
+    material: 'Polycarbonate',
+    imageId: 'sun-8'
+  },
+  {
+    id: '34',
+    name: 'Lauredale Glam',
+    price: 260,
+    description: 'Oversized luxury sunglasses from Lauredale.',
+    type: 'sunglasses',
+    brand: 'Lauredale',
+    style: 'Round',
+    material: 'Acetate',
+    imageId: 'sun-9'
+  },
+  {
+    id: '35',
+    name: 'Technoii Shield',
+    price: 320,
+    description: 'Futuristic shield sunglasses from Technoii.',
+    type: 'sunglasses',
+    brand: 'Technoii',
+    style: 'Sport',
+    material: 'Polycarbonate',
+    imageId: 'sun-10'
+  },
+  {
+    id: '36',
+    name: 'NVG Tactical',
+    price: 190,
+    description: 'Wraparound tactical sunglasses from NVG.',
+    type: 'sunglasses',
+    brand: 'NVG',
+    style: 'Sport',
+    material: 'Polycarbonate',
+    imageId: 'sun-11'
+  },
    {
     id: '13',
     name: 'Single Vision',
@@ -298,6 +397,28 @@ export const products: Product[] = [
     style: 'Bifocal',
     material: 'Polycarbonate',
     imageId: 'lens-bifocal',
+  },
+  {
+    id: '37',
+    name: 'Photochromic',
+    price: 250,
+    description: 'Lenses that darken on exposure to specific types of light of sufficient intensity, most commonly ultraviolet radiation.',
+    type: 'lenses',
+    brand: 'Visionary',
+    style: 'Photochromic',
+    material: 'Polycarbonate',
+    imageId: 'lens-4'
+  },
+  {
+    id: '38',
+    name: 'High-Index',
+    price: 300,
+    description: 'Thinner and lighter lenses for those with strong prescriptions.',
+    type: 'lenses',
+    brand: 'Visionary',
+    style: 'High-Index',
+    material: 'Polycarbonate',
+    imageId: 'lens-5'
   }
 ];
 
@@ -306,7 +427,7 @@ export const getProductById = (id: string): Product | undefined => {
 }
 
 // These are now just for fallback or for UI elements that need the full list before data loads.
-export const brands = ['Ray-Ban', 'Oakley', 'Persol', 'Vogue', 'Visionary', 'Titan', 'Fastrack', 'Technoii', 'Lauredale'];
-export const styles = ['Aviator', 'Wayfarer', 'Round', 'Cat-Eye', 'Rectangular', 'Browline', 'Sport'];
+export const brands: (Product['brand'])[] = ['Ray-Ban', 'Oakley', 'Persol', 'Vogue', 'Visionary', 'Titan', 'Fastrack', 'Technoii', 'Lauredale', 'NVG'];
+export const styles: (Product['style'])[] = ['Aviator', 'Wayfarer', 'Round', 'Cat-Eye', 'Rectangular', 'Browline', 'Sport'];
 export const types = ['frames', 'sunglasses', 'lenses'];
-export const lensStyles = ['Zero Power', 'Single Vision', 'Bifocal', 'Progressive'];
+export const lensStyles: (Product['style'])[] = ['Zero Power', 'Single Vision', 'Bifocal', 'Progressive', 'Photochromic', 'High-Index'];

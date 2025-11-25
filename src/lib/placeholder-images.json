@@ -51,7 +51,7 @@
     {
       "id": "frame-8",
       "description": "Lightweight and durable frames with a clean, minimalist design.",
-      "imageUrl": "https://images.unsplash.com/photo-1629082984189-e9b4ffc37553?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwZ2xhc3Nlc3xlbnwwfHx8fDE3NjQxMDQ3ODR8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1629082984189-e9b4ffc37553?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwZ2xhc3Nlc3xlbnwwfHx8fDE3NjQxMDQ3ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "minimalist glasses"
     },
     {
@@ -63,13 +63,13 @@
     {
       "id": "frame-10",
       "description": "Bold, sharp lines define this modern frame from Titan.",
-      "imageUrl": "https://images.unsplash.com/photo-1622978393163-5494291cd90f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxib2xkJTIwbW9kZXJuJTIwZ2xhc3Nlc3xlbnwwfHx8fDE3NjQxNjI5NDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1622978393163-5494291cd90f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxib2xkJTIwbW9kZXJuJTIwZ2xhc3Nlc3xlbnwwfHx8fDE3NjQxNjI5NDV8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "bold modern glasses"
     },
     {
       "id": "frame-11",
       "description": "A trendy and youthful design from Fastrack, perfect for making a fashion statement.",
-      "imageUrl": "https://images.unsplash.com/photo-1574258485689-AE35c2493976?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0cmVuZHklMjBnbGFzc2VzJTIweW91bmd8ZW58MHx8fHwxNzY0MTYyOTc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1574258485689-AE35c2493976?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0cmVuZHklMjBnbGFzc2VzJTIweW91bmd8ZW58MHx8fHwxNzY0MTYyOTc5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "trendy young glasses"
     },
     {
@@ -81,19 +81,43 @@
     {
       "id": "frame-13",
       "description": "Experience luxury with these exquisitely crafted frames from Lauredale.",
-      "imageUrl": "https://images.unsplash.com/photo-1610298357252-3e2840134b41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxleHBlbnNpdmUlMjBnbGFzc2VzfGVufDB8fHx8MTc2NDE2MzA3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1610298357252-3e2840134b41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHhleHBlbnNpdmUlMjBnbGFzc2VzfGVufDB8fHx8MTc2NDE2MzA3Nnww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "luxury glasses"
+    },
+    {
+      "id": "frame-14",
+      "description": "Bold square frames from NVG for a standout look.",
+      "imageUrl": "https://images.unsplash.com/photo-1755869985928-0e61815beddb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzcXVhcmUlMjBnbGFzc2VzfGVufDB8fHx8MTc2Mzk3NTYzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "square glasses"
+    },
+    {
+      "id": "frame-15",
+      "description": "Classic wayfarer frames from Titan.",
+      "imageUrl": "https://images.unsplash.com/photo-1669046635089-bb51ad819b5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3YXlmYXJlciUyMGdsYXNzZXN8ZW58MHx8fHwxNzY0MDY5NTg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "wayfarer glasses"
+    },
+    {
+      "id": "frame-16",
+      "description": "Technoii smart glasses with integrated tech.",
+      "imageUrl": "https://images.unsplash.com/photo-1587069164993-ea928948eae1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzbWFydCUyMGdsYXNzZXN8ZW58MHx8fHwxNzY0MDY5NTg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smart glasses"
+    },
+    {
+      "id": "frame-17",
+      "description": "Lauredale luxury cat-eye frames in gold.",
+      "imageUrl": "https://images.unsplash.com/photo-1663901303513-9f14f6ef6b23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsdXh1cnklMjBnbGFzc2VzfGVufDB8fHx8MTc2NDA2OTU4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "luxury glasses"
     },
     {
       "id": "sun-1",
       "description": "Classic black wayfarer sunglasses.",
-      "imageUrl": "https://images.unsplash.com/photo-1689103630311-b653ff412b37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxibGFjayUyMHdheWZhcmVyJTIwc3VuZ2xhc3Nlc3xlbnwwfHx8fDE3NjM5NzU2NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1689103630311-b653ff412b37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxibGFjayUyMHdheWZhcmVyJTIwc3VuZ2xhc3Nlc3xlbnwwfHx8fDE3NjM5NzU2NzJ8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "black wayfarer sunglasses"
     },
     {
       "id": "sun-2",
       "description": "Gold-rimmed aviator sunglasses with green lenses.",
-      "imageUrl": "https://images.unsplash.com/photo-1610021702221-5d941f6fb291?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhdmlhdG9yJTIwc3VuZ2xhc3Nlc3xlbnwwfHx8fDE3NjM5NzU2Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1610021702221-5d941f6fb291?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhdmlhdG9yJTIwc3VuZ2xhc3Nlc3xlbnwwfHx8fDE3NjM5NzU2Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "aviator sunglasses"
     },
     {
@@ -121,6 +145,36 @@
       "imageHint": "white cat-eye sunglasses"
     },
     {
+      "id": "sun-7",
+      "description": "Titanium square sunglasses from Titan.",
+      "imageUrl": "https://images.unsplash.com/photo-1569228209784-565c1bf9ea57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzcXVhcmUlMjBzdW5nbGFzc2VzfGVufDB8fHx8MTc2NDA2OTU4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "square sunglasses"
+    },
+    {
+      "id": "sun-8",
+      "description": "Fastrack sporty sunglasses for an active lifestyle.",
+      "imageUrl": "https://images.unsplash.com/photo-1760551732733-9ac6be2c0e39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzcG9ydHklMjBzdW5nbGFzc2VzfGVufDB8fHx8MTc2Mzk3NTY3MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sporty sunglasses"
+    },
+    {
+      "id": "sun-9",
+      "description": "Lauredale oversized luxury sunglasses.",
+      "imageUrl": "https://images.unsplash.com/photo-1760446031507-ed534e0f9605?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxsdXh1cnklMjBzdW5nbGFzc2VzfGVufDB8fHx8MTc2NDA2OTU4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "luxury sunglasses"
+    },
+    {
+      "id": "sun-10",
+      "description": "Technoii smart sunglasses with UV protection.",
+      "imageUrl": "https://images.unsplash.com/photo-1614748044812-07a849aa1f58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzbWFydCUyMHN1bmdsYXNzZXN8ZW58MHx8fHwxNzY0MDY5NTg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smart sunglasses"
+    },
+    {
+      "id": "sun-11",
+      "description": "NVG wraparound tactical sunglasses.",
+      "imageUrl": "https://images.unsplash.com/photo-1653038282366-09ae0df227be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0YWN0aWNhbCUyMHN1bmdsYXNzZXN8ZW58MHx8fHwxNzY0MDY5NTg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tactical sunglasses"
+    },
+    {
       "id": "checkout-hero",
       "description": "A close-up of a credit card being held.",
       "imageUrl": "https://images.unsplash.com/photo-1556742031-c6961e8560b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjcmVkaXQlMjBjYXJkJTIwcGF5bWVudHxlbnwwfHx8fDE3NjM4ODA0NTh8MA&ixlib-rb-4.1.0&q=80&w=1080",
@@ -145,6 +199,18 @@
       "imageHint": "blue light lenses"
     },
     {
+      "id": "lens-4",
+      "description": "Transitions lenses that adapt to light conditions.",
+      "imageUrl": "https://images.unsplash.com/photo-1700825238625-78a0a079c8bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwaG90b2Nocm9taWMlMjBsZW5zZXN8ZW58MHx8fHwxNzY0MDY5NTg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "photochromic lenses"
+    },
+    {
+      "id": "lens-5",
+      "description": "High-index lenses for strong prescriptions.",
+      "imageUrl": "https://images.unsplash.com/photo-1568475004576-f05a3903642f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dGhpbiUyMGxlbnNlc3xlbnwwfHx8fDE3NjQwNjk1ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "thin lenses"
+    },
+    {
       "id": "lens-progressive",
       "description": "Abstract image showing smooth transitions, representing progressive lenses.",
       "imageUrl": "https://images.unsplash.com/photo-1557682250-33bd709cbe85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYnN0cmFjdCUyMGJsdXIlMjBncmFkaWVudHxlbnwwfHx8fDE3NjQwNzU4MjF8MA&ixlib-rb-4.1.0&q=80&w=1080",
@@ -153,7 +219,7 @@
     {
       "id": "lens-bifocal",
       "description": "Abstract image with a clear dividing line, representing bifocal lenses.",
-      "imageUrl": "https://images.unsplash.com/photo-1557683311-e87064090562?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxibHVlJTIwYW5kJTIwcHVycGxlJTIwZ3JhZGllbnR8ZW58MHx8fHwxNzY0MDc1OTg4fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1557683311-e87064090562?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHhibHVlJTIwYW5kJTIwcHVycGxlJTIwZ3JhZGllbnR8ZW58MHx8fHwxNzY0MDc1OTg4fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "split gradient"
     }
   ]
