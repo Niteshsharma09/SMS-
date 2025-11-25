@@ -25,18 +25,18 @@ export type Filters = {
   lensStyle: string[];
 };
 
-const BrandShowcaseModal = ({ open, onOpenChange, onBrandSelect }: { open: boolean, onOpenChange: (open: boolean) => void, onBrandSelect: (brand: string) => void }) => {
+const BrandShowcaseModal = ({ open, onOpenChange, onBrandSelect, title, description, brands }: { open: boolean, onOpenChange: (open: boolean) => void, onBrandSelect: (brand: string) => void, title: string, description: string, brands: string[] }) => {
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[600px]">
                 <DialogHeader>
-                    <DialogTitle className="font-headline text-2xl text-center mb-2">Shop By Brand</DialogTitle>
+                    <DialogTitle className="font-headline text-2xl text-center mb-2">{title}</DialogTitle>
                     <DialogDescription className="text-sm text-muted-foreground text-center">
-                        Explore our collection of top-tier frame brands.
+                        {description}
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-4">
-                    {allBrands.map(brand => (
+                    {brands.map(brand => (
                         <Card key={brand} className="p-4 flex flex-col items-center justify-center text-center hover:bg-muted/50 cursor-pointer" onClick={() => onBrandSelect(brand)}>
                              {/* You can add brand logos here in the future */}
                              <span className="font-semibold text-lg">{brand}</span>
@@ -67,7 +67,8 @@ function ProductGrid() {
     style: [],
     lensStyle: [],
   });
-  const [isBrandModalOpen, setIsBrandModalOpen] = useState(false);
+  const [isFrameBrandModalOpen, setIsFrameBrandModalOpen] = useState(false);
+  const [isSunglassBrandModalOpen, setIsSunglassBrandModalOpen] = useState(false);
   const [isLensModalOpen, setIsLensModalOpen] = useState(false);
   const { addToCart } = useCart();
 
@@ -113,26 +114,38 @@ function ProductGrid() {
   
   const handleCategorySelect = (category: 'frames' | 'lenses' | 'sunglasses' | null) => {
     if (category === 'frames') {
-        setIsBrandModalOpen(true);
+        setIsFrameBrandModalOpen(true);
     } else if (category === 'lenses') {
         setIsLensModalOpen(true);
+    } else if (category === 'sunglasses') {
+        setIsSunglassBrandModalOpen(true);
     } else {
         setFilters(prev => ({
             ...prev,
-            type: category ? [category] : [],
+            type: [],
             brand: [],
         }));
     }
   };
 
-  const handleBrandSelectFromModal = (brand: string) => {
+  const handleFrameBrandSelectFromModal = (brand: string) => {
       setFilters({
           type: ['frames'],
           brand: [brand],
           style: [],
           lensStyle: []
       });
-      setIsBrandModalOpen(false);
+      setIsFrameBrandModalOpen(false);
+  }
+
+  const handleSunglassBrandSelectFromModal = (brand: string) => {
+      setFilters({
+          type: ['sunglasses'],
+          brand: [brand],
+          style: [],
+          lensStyle: []
+      });
+      setIsSunglassBrandModalOpen(false);
   }
 
   const handleLensSelectFromModal = (lensOption: LensOption) => {
@@ -159,6 +172,8 @@ function ProductGrid() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
 
   const dynamicBrands = useMemo(() => products ? [...new Set(products.map(p => p.brand))] : [], [products]);
+  const frameBrands = useMemo(() => products ? [...new Set(products.filter(p => p.type === 'frames').map(p => p.brand))] : [], [products]);
+  const sunglassBrands = useMemo(() => products ? [...new Set(products.filter(p => p.type === 'sunglasses').map(p => p.brand))] : [], [products]);
   const dynamicStyles = useMemo(() => products ? [...new Set(products.filter(p => p.type !== 'lenses').map(p => p.style))] : [], [products]);
   const dynamicTypes = useMemo(() => products ? [...new Set(products.map(p => p.type))] : [], [products]);
   const dynamicLensStyles = useMemo(() => products ? [...new Set(products.filter(p => p.type === 'lenses').map(p => p.style))] : [], [products]);
@@ -181,9 +196,20 @@ function ProductGrid() {
       </Sidebar>
       <SidebarInset>
         <BrandShowcaseModal 
-            open={isBrandModalOpen}
-            onOpenChange={setIsBrandModalOpen}
-            onBrandSelect={handleBrandSelectFromModal}
+            open={isFrameBrandModalOpen}
+            onOpenChange={setIsFrameBrandModalOpen}
+            onBrandSelect={handleFrameBrandSelectFromModal}
+            title="Shop Frames By Brand"
+            description="Explore our collection of top-tier frame brands."
+            brands={frameBrands}
+        />
+        <BrandShowcaseModal 
+            open={isSunglassBrandModalOpen}
+            onOpenChange={setIsSunglassBrandModalOpen}
+            onBrandSelect={handleSunglassBrandSelectFromModal}
+            title="Shop Sunglasses By Brand"
+            description="Discover stylish sunglasses from leading brands."
+            brands={sunglassBrands}
         />
         <Dialog open={isLensModalOpen} onOpenChange={setIsLensModalOpen}>
             <LensSelectionModal onLensSelect={handleLensSelectFromModal} products={products || []} />
