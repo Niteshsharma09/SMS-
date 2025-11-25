@@ -175,7 +175,7 @@ function ProductGrid() {
   const frameBrands = useMemo(() => products ? [...new Set(products.filter(p => p.type === 'frames').map(p => p.brand))] : [], [products]);
   const sunglassBrands = useMemo(() => products ? [...new Set(products.filter(p => p.type === 'sunglasses').map(p => p.brand))] : [], [products]);
   const dynamicStyles = useMemo(() => products ? [...new Set(products.filter(p => p.type !== 'lenses').map(p => p.style))] : [], [products]);
-  const dynamicTypes = useMemo(() => products ? [...new Set(products.map(p => p.type))] : [], [products]);
+  const filterTypes = ['frames', 'lenses', 'sunglasses'];
   const dynamicLensStyles = useMemo(() => products ? [...new Set(products.filter(p => p.type === 'lenses').map(p => p.style))] : [], [products]);
 
   if (areProductsLoading) {
@@ -190,7 +190,7 @@ function ProductGrid() {
           setFilters={setFilters}
           brands={dynamicBrands}
           styles={dynamicStyles}
-          types={dynamicTypes}
+          types={filterTypes}
           lensStyles={dynamicLensStyles}
         />
       </Sidebar>

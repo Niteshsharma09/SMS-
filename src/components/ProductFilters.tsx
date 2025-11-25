@@ -41,6 +41,13 @@ export function ProductFilters({ filters, setFilters, brands, styles, types, len
   
   const showLensStyles = filters.type.includes('lenses');
 
+  const getLabel = (type: string) => {
+    if (type === 'frames') return 'Frames';
+    if (type === 'lenses') return 'Lenses';
+    if (type === 'sunglasses') return 'Sunglasses';
+    return type;
+  }
+
   return (
     <>
       <SidebarHeader>
@@ -66,7 +73,7 @@ export function ProductFilters({ filters, setFilters, brands, styles, types, len
                         onCheckedChange={() => handleCheckboxChange('type', type)}
                       />
                       <Label htmlFor={`type-${type}`} className="capitalize">
-                        {type}
+                        {getLabel(type)}
                       </Label>
                     </div>
                   ))}
