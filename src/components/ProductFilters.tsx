@@ -1,20 +1,22 @@
 'use client';
 
-import { brands, styles, types, lensStyles } from '@/lib/products';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { SidebarHeader, SidebarContent, SidebarGroup } from './ui/sidebar';
 import type { Filters } from '@/app/page';
 import { Button } from './ui/button';
-import { Separator } from './ui/separator';
 
 interface ProductFiltersProps {
   filters: Filters;
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  brands: string[];
+  styles: string[];
+  types: string[];
+  lensStyles: string[];
 }
 
-export function ProductFilters({ filters, setFilters }: ProductFiltersProps) {
+export function ProductFilters({ filters, setFilters, brands, styles, types, lensStyles }: ProductFiltersProps) {
   const handleCheckboxChange = (category: keyof Filters, value: string) => {
     setFilters((prevFilters) => {
       const newValues = prevFilters[category].includes(value)
@@ -23,7 +25,6 @@ export function ProductFilters({ filters, setFilters }: ProductFiltersProps) {
 
       const newFilters = { ...prevFilters, [category]: newValues };
 
-      // If "Lenses" is unchecked, also clear lensStyle filters
       if (category === 'type' && value === 'lenses' && !newValues.includes('lenses')) {
         newFilters.lensStyle = [];
       }

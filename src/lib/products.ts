@@ -10,6 +10,8 @@ export type Product = {
   imageId: string;
 };
 
+// This is now used for seeding data or as a fallback.
+// The app primarily fetches data from Firestore.
 export const products: Product[] = [
   {
     id: '1',
@@ -189,11 +191,12 @@ export const products: Product[] = [
   }
 ];
 
-export const getProductById = (id: string): Product | undefined => {
-    return products.find(p => p.id === id);
+export const getProductById = (id: string, allProducts: Product[]): Product | undefined => {
+    return allProducts.find(p => p.id === id);
 }
 
-export const brands = [...new Set(products.map(p => p.brand))];
-export const styles = [...new Set(products.filter(p => p.type !== 'lenses').map(p => p.style))];
-export const types = [...new Set(products.map(p => p.type))];
-export const lensStyles = [...new Set(products.filter(p => p.type === 'lenses').map(p => p.style))];
+// These are now just for fallback or for UI elements that need the full list before data loads.
+export const brands = ['Ray-Ban', 'Oakley', 'Persol', 'Vogue', 'Visionary'];
+export const styles = ['Aviator', 'Wayfarer', 'Round', 'Cat-Eye', 'Rectangular', 'Browline', 'Sport'];
+export const types = ['frames', 'sunglasses', 'lenses'];
+export const lensStyles = ['Zero Power', 'Single Vision', 'Bifocal', 'Progressive'];

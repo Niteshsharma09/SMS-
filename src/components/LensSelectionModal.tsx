@@ -36,9 +36,10 @@ const lensCategories: LensCategory[] = [
 interface LensSelectionModalProps {
     onLensSelect: (lens: LensOption) => void;
     product?: Product; // This is now optional
+    products?: Product[];
 }
 
-export function LensSelectionModal({ onLensSelect, product }: LensSelectionModalProps) {
+export function LensSelectionModal({ onLensSelect, product, products }: LensSelectionModalProps) {
     const [step, setStep] = useState<'category' | 'options'>('category');
     const [selectedCategory, setSelectedCategory] = useState<LensCategory | null>(null);
 
@@ -99,5 +100,3 @@ export function LensSelectionModal({ onLensSelect, product }: LensSelectionModal
         </DialogContent>
     );
 }
-
-    

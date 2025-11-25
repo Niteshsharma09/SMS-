@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { notFound, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { getProductById } from '@/lib/products';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/cart-context';
@@ -19,22 +18,81 @@ import { VirtualTryOn } from '@/components/VirtualTryOn';
 import { cn } from '@/lib/utils';
 import { LensSelectionModal } from '@/components/LensSelectionModal';
 import { LensOption } from '@/components/LensOptions';
+import { useDoc, useFirestore } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { Product } from '@/lib/products';
+import { Skeleton } from '@/components/ui/skeleton';
+
+function ProductPageSkeleton() {
+  return (
+    <div className="container mx-auto max-w-7xl py-8 px-4 md:py-12">
+      <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="flex flex-row-reverse gap-4">
+          <div className="flex-1">
+            <Skeleton className="aspect-square w-full rounded-lg" />
+          </div>
+          <div className="flex flex-col gap-2">
+            {[...Array(4)].map((_, i) => (
+              <Skeleton key={i} className="w-20 h-20 rounded-md" />
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col space-y-4">
+          <Skeleton className="h-12 w-3/4" />
+          <Skeleton className="h-6 w-1/2" />
+          <Skeleton className="h-6 w-1/4" />
+          <Skeleton className="h-10 w-1/3" />
+          <div className="space-y-2 pt-4">
+            <Skeleton className="h-6 w-1/4" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-3/4" />
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <Skeleton className="h-12 flex-1" />
+            <Skeleton className="h-12 flex-1" />
+          </div>
+          <Skeleton className="h-12 w-full" />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const [isTryOnOpen, setIsTryOnOpen] = useState(false);
   const [isLensModalOpen, setIsLensModalOpen] = useState(false);
   const [selectedLens, setSelectedLens] = useState<LensOption | null>(null);
+  
+  const firestore = useFirestore();
+  const productDocRef = useMemo(() => {
+    if (!firestore || !params.id) return null;
+    return doc(firestore, `products/${params.id}`);
+  }, [firestore, params.id]);
 
-  const product = getProductById(params.id);
+  const { data: product, isLoading: isProductLoading } = useDoc<Product>(productDocRef);
   const { addToCart } = useCart();
   const router = useRouter();
+  
+  const image = useMemo(() => {
+      if (!product) return null;
+      return PlaceHolderImages.find((img) => img.id === product.imageId);
+  }, [product]);
+
+  const [activeImage, setActiveImage] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    if (image && !activeImage) {
+      setActiveImage(image.imageUrl);
+    }
+  }, [image, activeImage]);
+
+  if (isProductLoading) {
+    return <ProductPageSkeleton />;
+  }
   
   if (!product) {
     notFound();
   }
-
-  const image = PlaceHolderImages.find((img) => img.id === product.imageId);
-  const [activeImage, setActiveImage] = useState(image?.imageUrl);
 
   const galleryImages = image ? [image, image, image, image] : [];
 

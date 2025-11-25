@@ -2,7 +2,7 @@
 
 import { useState, useMemo, Suspense, useEffect } from 'react';
 import Image from 'next/image';
-import { products, Product, brands as allBrands } from '@/lib/products';
+import { Product, brands as allBrands, types as allTypes, styles as allStyles, lensStyles as allLensStyles } from '@/lib/products';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductFilters } from '@/components/ProductFilters';
@@ -12,11 +12,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { CategoryNavigation } from '@/components/CategoryNavigation';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { LensSelectionModal } from '@/components/LensSelectionModal';
 import { LensOption } from '@/components/LensOptions';
 import { useCart } from '@/context/cart-context';
+import { useCollection, useFirestore } from '@/firebase';
+import { collection, query } from 'firebase/firestore';
 
 export type Filters = {
   type: string[];
@@ -53,6 +53,14 @@ function ProductGrid() {
   const searchQuery = searchParams.get('q') || '';
   const initialCategory = searchParams.get('category') || '';
   
+  const firestore = useFirestore();
+  const productsCollection = useMemo(() => {
+      if (!firestore) return null;
+      return query(collection(firestore, 'products'));
+  }, [firestore]);
+
+  const { data: products, isLoading: areProductsLoading } = useCollection<Product>(productsCollection);
+  
   const [filters, setFilters] = useState<Filters>({
     type: initialCategory ? [initialCategory] : [],
     brand: [],
@@ -68,26 +76,21 @@ function ProductGrid() {
     const category = searchParams.get('category');
     if (category) {
       setFilters(prev => ({ ...prev, type: [category] }));
-    } else {
-      // If no category in URL, you might want to clear the type filter
-      // depending on desired behavior. For now, we'll let it persist
-      // until manually cleared or changed.
     }
   }, [searchParams]);
 
   const filteredProducts = useMemo(() => {
+    if (!products) return [];
     return products
       .filter((product) => {
         const { type, brand, style, lensStyle } = filters;
         
-        // Search query filter
         const matchesSearch = searchQuery
           ? product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             product.description.toLowerCase().includes(searchQuery.toLowerCase())
           : true;
         if (!matchesSearch) return false;
         
-        // Checkbox filters
         if (type.length > 0 && !type.includes(product.type)) {
           return false;
         }
@@ -96,19 +99,17 @@ function ProductGrid() {
           return false;
         }
 
-        // Handle frame styles
         if (product.type !== 'lenses' && style.length > 0 && !style.includes(product.style)) {
             return false;
         }
 
-        // Handle lens styles, only if 'lenses' type is selected
         if (product.type === 'lenses' && lensStyle.length > 0 && !lensStyle.includes(product.style)) {
             return false;
         }
         
         return true;
       });
-  }, [filters, searchQuery]);
+  }, [filters, searchQuery, products]);
   
   const handleCategorySelect = (category: 'frames' | 'lenses' | 'sunglasses' | null) => {
     if (category === 'frames') {
@@ -119,7 +120,7 @@ function ProductGrid() {
         setFilters(prev => ({
             ...prev,
             type: category ? [category] : [],
-            brand: [], // Reset brand filter when changing main category
+            brand: [],
         }));
     }
   };
@@ -135,9 +136,9 @@ function ProductGrid() {
   }
 
   const handleLensSelectFromModal = (lensOption: LensOption) => {
+    if (!products) return;
     const lensProduct: Product | undefined = products.find(p => p.style === lensOption.title);
 
-    // Create a virtual product representing the selected lens package
     const lensPackageProduct: Product = {
       id: `lens-pkg-${lensOption.title.replace(/\s+/g, '-')}`,
       name: `${lensOption.title} Lenses`,
@@ -157,10 +158,26 @@ function ProductGrid() {
 
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
 
+  const dynamicBrands = useMemo(() => products ? [...new Set(products.map(p => p.brand))] : [], [products]);
+  const dynamicStyles = useMemo(() => products ? [...new Set(products.filter(p => p.type !== 'lenses').map(p => p.style))] : [], [products]);
+  const dynamicTypes = useMemo(() => products ? [...new Set(products.map(p => p.type))] : [], [products]);
+  const dynamicLensStyles = useMemo(() => products ? [...new Set(products.filter(p => p.type === 'lenses').map(p => p.style))] : [], [products]);
+
+  if (areProductsLoading) {
+    return <HomePageSkeleton />;
+  }
+
   return (
     <div className="flex min-h-screen">
       <Sidebar>
-        <ProductFilters filters={filters} setFilters={setFilters} />
+        <ProductFilters 
+          filters={filters} 
+          setFilters={setFilters}
+          brands={dynamicBrands}
+          styles={dynamicStyles}
+          types={dynamicTypes}
+          lensStyles={dynamicLensStyles}
+        />
       </Sidebar>
       <SidebarInset>
         <BrandShowcaseModal 
@@ -169,7 +186,7 @@ function ProductGrid() {
             onBrandSelect={handleBrandSelectFromModal}
         />
         <Dialog open={isLensModalOpen} onOpenChange={setIsLensModalOpen}>
-            <LensSelectionModal onLensSelect={handleLensSelectFromModal} />
+            <LensSelectionModal onLensSelect={handleLensSelectFromModal} products={products || []} />
         </Dialog>
         <div className="flex flex-col">
           <div className="relative h-64 w-full md:h-96">
@@ -208,7 +225,7 @@ function ProductGrid() {
             ) : (
               <div className="text-center py-16">
                 <p className="text-xl text-muted-foreground">
-                  {searchQuery ? `No products found for "${searchQuery}".` : "No products found matching your criteria."}
+                  {areProductsLoading ? 'Loading products...' : (searchQuery ? `No products found for "${searchQuery}".` : "No products found matching your criteria.")}
                 </p>
               </div>
             )}
@@ -277,5 +294,3 @@ function HomePageSkeleton() {
     </div>
   )
 }
-
-    
