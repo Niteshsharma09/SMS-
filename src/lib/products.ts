@@ -6,7 +6,7 @@ export type Product = {
   price: number;
   description: string;
   type: 'frames' | 'sunglasses' | 'lenses';
-  brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary' | 'Titan' | 'Fastrack' | 'Lauredale' | 'Technoii' | 'NVG';
+  brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary';
   style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Zero Power' | 'Single Vision' | 'Bifocal' | 'Progressive';
   material: 'Metal' | 'Acetate' | 'Titanium' | 'Polycarbonate';
   imageId: string;
@@ -180,61 +180,6 @@ export const products: Product[] = [
     material: 'Metal',
     imageId: 'sun-2',
   },
-  {
-    id: '21',
-    name: 'Edge',
-    price: 120,
-    description: 'Modern and sleek sunglasses from Titan, perfect for a sharp, contemporary look.',
-    type: 'sunglasses',
-    brand: 'Titan',
-    style: 'Rectangular',
-    material: 'Metal',
-    imageId: 'sun-1'
-  },
-  {
-    id: '22',
-    name: 'Rider',
-    price: 80,
-    description: 'Sporty and youthful sunglasses from Fastrack, built for an active lifestyle.',
-    type: 'sunglasses',
-    brand: 'Fastrack',
-    style: 'Sport',
-    material: 'Polycarbonate',
-    imageId: 'sun-4'
-  },
-  {
-    id: '23',
-    name: 'Riviera',
-    price: 150,
-    description: 'Elegant and stylish sunglasses from Lauredale, for a touch of classic glamour.',
-    type: 'sunglasses',
-    brand: 'Lauredale',
-    style: 'Cat-Eye',
-    material: 'Acetate',
-    imageId: 'sun-6'
-  },
-  {
-    id: '24',
-    name: 'Vision',
-    price: 100,
-    description: 'The signature sunglasses from Technoii, combining modern design with everyday comfort.',
-    type: 'sunglasses',
-    brand: 'Technoii',
-    style: 'Wayfarer',
-    material: 'Acetate',
-    imageId: 'sun-1'
-  },
-  {
-    id: '25',
-    name: 'Nightfall',
-    price: 130,
-    description: 'NVG tactical-style sunglasses, offering superior protection and a bold look.',
-    type: 'sunglasses',
-    brand: 'NVG',
-    style: 'Sport',
-    material: 'Polycarbonate',
-    imageId: 'sun-4'
-  },
    {
     id: '13',
     name: 'Single Vision',
@@ -286,7 +231,7 @@ export const getProductById = (id: string, allProducts: Product[]): Product | un
 }
 
 // These are now just for fallback or for UI elements that need the full list before data loads.
-export const brands = ['Ray-Ban', 'Oakley', 'Persol', 'Vogue', 'Visionary', 'Titan', 'Fastrack', 'Lauredale', 'Technoii', 'NVG'];
+export const brands = ['Ray-Ban', 'Oakley', 'Persol', 'Vogue', 'Visionary'];
 export const styles = ['Aviator', 'Wayfarer', 'Round', 'Cat-Eye', 'Rectangular', 'Browline', 'Sport'];
 export const types = ['frames', 'sunglasses', 'lenses'];
 export const lensStyles = ['Zero Power', 'Single Vision', 'Bifocal', 'Progressive'];
