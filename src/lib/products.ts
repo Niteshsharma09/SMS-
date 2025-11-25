@@ -1,3 +1,4 @@
+
 export type Product = {
   id: string;
   name: string;
@@ -144,6 +145,39 @@ export const products: Product[] = [
     style: 'Cat-Eye',
     material: 'Acetate',
     imageId: 'sun-6',
+  },
+  {
+    id: '18',
+    name: 'Holbrook',
+    price: 180,
+    description: 'A timeless, classic design fused with modern Oakley technology. Inspired by the screen heroes from the 1940s, 50s, and 60s.',
+    type: 'sunglasses',
+    brand: 'Oakley',
+    style: 'Wayfarer',
+    material: 'Acetate',
+    imageId: 'sun-1',
+  },
+  {
+    id: '19',
+    name: 'Cellor',
+    price: 280,
+    description: 'An iconic Persol design, the Cellor features a distinctive browline style and the signature Persol arrow.',
+    type: 'sunglasses',
+    brand: 'Persol',
+    style: 'Browline',
+    material: 'Acetate',
+    imageId: 'sun-5',
+  },
+  {
+    id: '20',
+    name: 'Round Metal',
+    price: 210,
+    description: 'Totally retro. This look has been worn by legendary musicians and inspired by the 1960s counter-culture.',
+    type: 'sunglasses',
+    brand: 'Ray-Ban',
+    style: 'Round',
+    material: 'Metal',
+    imageId: 'sun-2',
   },
    {
     id: '13',
