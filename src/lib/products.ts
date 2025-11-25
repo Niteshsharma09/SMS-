@@ -1,12 +1,13 @@
 
 
+
 export type Product = {
   id: string;
   name: string;
   price: number;
   description: string;
   type: 'frames' | 'sunglasses' | 'lenses';
-  brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary';
+  brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary' | 'Titan' | 'Fastrack' | 'Technoii' | 'Lauredale';
   style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Zero Power' | 'Single Vision' | 'Bifocal' | 'Progressive';
   material: 'Metal' | 'Acetate' | 'Titanium' | 'Polycarbonate';
   imageId: string;
@@ -113,6 +114,50 @@ export const products: Product[] = [
     style: 'Cat-Eye',
     material: 'Metal',
     imageId: 'frame-9'
+  },
+  {
+    id: '24',
+    name: 'Edge',
+    price: 250,
+    description: 'Bold, sharp lines define this modern frame from Titan. Engineered for a comfortable yet secure fit.',
+    type: 'frames',
+    brand: 'Titan',
+    style: 'Rectangular',
+    material: 'Titanium',
+    imageId: 'frame-10'
+  },
+  {
+    id: '25',
+    name: 'Urban Trend',
+    price: 120,
+    description: 'A trendy and youthful design from Fastrack. These frames are all about making a fashion statement.',
+    type: 'frames',
+    brand: 'Fastrack',
+    style: 'Wayfarer',
+    material: 'Polycarbonate',
+    imageId: 'frame-11'
+  },
+  {
+    id: '26',
+    name: 'Visionary One',
+    price: 180,
+    description: 'The signature frame from Technoii. A perfect blend of technology and style, designed for the modern innovator.',
+    type: 'frames',
+    brand: 'Technoii',
+    style: 'Browline',
+    material: 'Acetate',
+    imageId: 'frame-12'
+  },
+  {
+    id: '27',
+    name: 'Laurel Classic',
+    price: 200,
+    description: 'Experience the luxury of Lauredale with these exquisitely crafted frames. Timeless elegance guaranteed.',
+    type: 'frames',
+    brand: 'Lauredale',
+    style: 'Round',
+    material: 'Metal',
+    imageId: 'frame-13'
   },
   {
     id: '7',
@@ -264,9 +309,11 @@ export const getProductById = (id: string, allProducts: Product[]): Product | un
 }
 
 // These are now just for fallback or for UI elements that need the full list before data loads.
-export const brands = ['Ray-Ban', 'Oakley', 'Persol', 'Vogue', 'Visionary'];
+export const brands = ['Ray-Ban', 'Oakley', 'Persol', 'Vogue', 'Visionary', 'Titan', 'Fastrack', 'Technoii', 'Lauredale'];
 export const styles = ['Aviator', 'Wayfarer', 'Round', 'Cat-Eye', 'Rectangular', 'Browline', 'Sport'];
 export const types = ['frames', 'sunglasses', 'lenses'];
 export const lensStyles = ['Zero Power', 'Single Vision', 'Bifocal', 'Progressive'];
+
+    
 
     
