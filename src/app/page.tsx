@@ -2,7 +2,7 @@
 
 import { useState, useMemo, Suspense, useEffect } from 'react';
 import Image from 'next/image';
-import { Product, brands as allBrands, types as allTypes, styles as allStyles, lensStyles as allLensStyles } from '@/lib/products';
+import { Product, brands as allBrands, types as allTypes, styles as allStyles, lensStyles as allLensStyles, products as fallbackProducts } from '@/lib/products';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductFilters } from '@/components/ProductFilters';
@@ -59,7 +59,14 @@ function ProductGrid() {
       return query(collection(firestore, 'products'));
   }, [firestore]);
 
-  const { data: products, isLoading: areProductsLoading } = useCollection<Product>(productsCollection);
+  const { data: firestoreProducts, isLoading: areProductsLoading } = useCollection<Product>(productsCollection);
+
+  const products = useMemo(() => {
+    if (firestoreProducts && firestoreProducts.length > 0) {
+      return firestoreProducts;
+    }
+    return fallbackProducts;
+  }, [firestoreProducts]);
   
   const [filters, setFilters] = useState<Filters>({
     type: initialCategory ? [initialCategory] : [],
@@ -80,7 +87,6 @@ function ProductGrid() {
   }, [searchParams]);
 
   const filteredProducts = useMemo(() => {
-    if (!products) return [];
     return products
       .filter((product) => {
         const { type, brand, style, lensStyle } = filters;
@@ -115,7 +121,7 @@ function ProductGrid() {
     if (category === 'frames') {
         setFilters(prev => ({
             ...prev,
-            type: prev.type.includes('frames') ? [] : ['frames'],
+            type: ['frames'],
             brand: [],
         }));
     } else if (category === 'lenses') {
@@ -142,7 +148,6 @@ function ProductGrid() {
   }
 
   const handleLensSelectFromModal = (lensOption: LensOption) => {
-    if (!products) return;
     const lensProduct: Product | undefined = products.find(p => p.style === lensOption.title);
 
     const lensPackageProduct: Product = {
@@ -164,13 +169,13 @@ function ProductGrid() {
 
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
 
-  const dynamicBrands = useMemo(() => products ? [...new Set(products.map(p => p.brand))] : [], [products]);
-  const sunglassBrands = useMemo(() => products ? [...new Set(products.filter(p => p.type === 'sunglasses').map(p => p.brand))] : [], [products]);
-  const dynamicStyles = useMemo(() => products ? [...new Set(products.filter(p => p.type !== 'lenses').map(p => p.style))] : [], [products]);
+  const dynamicBrands = useMemo(() => [...new Set(products.map(p => p.brand))], [products]);
+  const sunglassBrands = useMemo(() => [...new Set(products.filter(p => p.type === 'sunglasses').map(p => p.brand))], [products]);
+  const dynamicStyles = useMemo(() => [...new Set(products.filter(p => p.type !== 'lenses').map(p => p.style))], [products]);
   const filterTypes = ['frames', 'lenses', 'sunglasses'];
-  const dynamicLensStyles = useMemo(() => products ? [...new Set(products.filter(p => p.type === 'lenses').map(p => p.style))] : [], [products]);
+  const dynamicLensStyles = useMemo(() => [...new Set(products.filter(p => p.type === 'lenses').map(p => p.style))], [products]);
 
-  if (areProductsLoading) {
+  if (areProductsLoading && (!firestoreProducts || firestoreProducts.length === 0)) {
     return <HomePageSkeleton />;
   }
 

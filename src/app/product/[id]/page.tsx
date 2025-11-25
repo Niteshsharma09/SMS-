@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { notFound, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -20,7 +20,7 @@ import { LensSelectionModal } from '@/components/LensSelectionModal';
 import { LensOption } from '@/components/LensOptions';
 import { useDoc, useFirestore } from '@/firebase';
 import { doc } from 'firebase/firestore';
-import { Product } from '@/lib/products';
+import { Product, getProductById } from '@/lib/products';
 import { Skeleton } from '@/components/ui/skeleton';
 
 function ProductPageSkeleton() {
@@ -70,9 +70,17 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     return doc(firestore, `products/${params.id}`);
   }, [firestore, params.id]);
 
-  const { data: product, isLoading: isProductLoading } = useDoc<Product>(productDocRef);
+  const { data: firestoreProduct, isLoading: isProductLoading } = useDoc<Product>(productDocRef);
   const { addToCart } = useCart();
   const router = useRouter();
+
+  const product = useMemo(() => {
+    if (firestoreProduct) {
+      return firestoreProduct;
+    }
+    // Fallback to local data if Firestore data is not available
+    return getProductById(params.id);
+  }, [firestoreProduct, params.id]);
   
   const image = useMemo(() => {
       if (!product) return null;
@@ -86,12 +94,21 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     }
   }, [image, activeImage]);
 
-  if (isProductLoading) {
+  useEffect(() => {
+    // If after loading, there is no firestore product and no fallback, then 404
+    if (!isProductLoading && !product) {
+      notFound();
+    }
+  }, [isProductLoading, product])
+
+
+  if (isProductLoading && !product) {
     return <ProductPageSkeleton />;
   }
   
   if (!product) {
-    notFound();
+     // This will be caught by the useEffect above, but as an extra safe guard
+    return <ProductPageSkeleton />;
   }
 
   const galleryImages = image ? [image, image, image, image] : [];
