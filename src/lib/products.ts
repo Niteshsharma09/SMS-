@@ -5,7 +5,7 @@ export type Product = {
   description: string;
   type: 'frames' | 'sunglasses' | 'lenses';
   brand: 'Ray-Ban' | 'Oakley' | 'Persol' | 'Vogue' | 'Visionary' | 'Titan' | 'Fastrack' | 'Technoii' | 'Lauredale' | 'NVG';
-  style: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Zero Power' | 'Single Vision' | 'Bifocal' | 'Progressive' | 'Photochromic' | 'High-Index';
+  style?: 'Aviator' | 'Wayfarer' | 'Round' | 'Cat-Eye' | 'Rectangular' | 'Browline' | 'Sport' | 'Zero Power' | 'Single Vision' | 'Bifocal' | 'Progressive' | 'Photochromic' | 'High-Index';
   material: 'Metal' | 'Acetate' | 'Titanium' | 'Polycarbonate';
   imageId: string;
 };

@@ -1,8 +1,9 @@
+
 'use client';
 
 import { useState, useMemo, Suspense, useEffect } from 'react';
 import Image from 'next/image';
-import { Product, brands as allBrands, types as allTypes, styles as allStyles, lensStyles as allLensStyles, products as fallbackProducts } from '@/lib/products';
+import { Product, products as fallbackProducts } from '@/lib/products';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductFilters } from '@/components/ProductFilters';
@@ -105,11 +106,11 @@ function ProductGrid() {
           return false;
         }
 
-        if (product.type !== 'lenses' && style.length > 0 && !style.includes(product.style)) {
+        if (product.type !== 'lenses' && style.length > 0 && product.style && !style.includes(product.style)) {
             return false;
         }
 
-        if (product.type === 'lenses' && lensStyle.length > 0 && !lensStyle.includes(product.style)) {
+        if (product.type === 'lenses' && lensStyle.length > 0 && product.style && !lensStyle.includes(product.style)) {
             return false;
         }
         
@@ -171,9 +172,9 @@ function ProductGrid() {
 
   const dynamicBrands = useMemo(() => [...new Set(products.map(p => p.brand))], [products]);
   const sunglassBrands = useMemo(() => [...new Set(products.filter(p => p.type === 'sunglasses').map(p => p.brand))], [products]);
-  const dynamicStyles = useMemo(() => [...new Set(products.filter(p => p.type !== 'lenses').map(p => p.style))], [products]);
+  const dynamicStyles = useMemo(() => [...new Set(products.filter(p => p.type !== 'lenses' && p.style).map(p => p.style!))], [products]);
   const filterTypes = ['frames', 'lenses', 'sunglasses'];
-  const dynamicLensStyles = useMemo(() => [...new Set(products.filter(p => p.type === 'lenses').map(p => p.style))], [products]);
+  const dynamicLensStyles = useMemo(() => [...new Set(products.filter(p => p.type === 'lenses' && p.style).map(p => p.style!))], [products]);
 
   if (areProductsLoading && (!firestoreProducts || firestoreProducts.length === 0)) {
     return <HomePageSkeleton />;
@@ -227,23 +228,25 @@ function ProductGrid() {
           
           <CategoryNavigation onSelectCategory={handleCategorySelect} selectedCategory={filters.type[0]} />
 
-          <div className="p-4 md:p-8">
-            <h2 className="font-headline text-3xl font-semibold mb-6">
-              {searchQuery ? `Search results for "${searchQuery}"` : "Our Collection"}
-            </h2>
-            {filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-16 flex flex-col items-center justify-center">
-                <p className="text-xl text-muted-foreground">
-                  {areProductsLoading ? 'Loading products...' : (searchQuery ? `No products found for "${searchQuery}".` : "No products found matching your criteria.")}
-                </p>
-              </div>
-            )}
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="py-8 md:py-12">
+              <h2 className="font-headline text-3xl font-semibold mb-6 text-center">
+                {searchQuery ? `Search results for "${searchQuery}"` : "Our Collection"}
+              </h2>
+              {filteredProducts.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {filteredProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-16 flex flex-col items-center justify-center">
+                  <p className="text-xl text-muted-foreground">
+                    {areProductsLoading ? 'Loading products...' : (searchQuery ? `No products found for "${searchQuery}".` : "No products found matching your criteria.")}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </SidebarInset>
@@ -291,17 +294,19 @@ function HomePageSkeleton() {
               />
             )}
           </div>
-          <div className="p-4 md:p-8">
-            <Skeleton className="h-8 w-1/3 mb-6" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {[...Array(8)].map((_, i) => (
-                <div key={i} className="space-y-2">
-                  <Skeleton className="h-48 w-full" />
-                  <Skeleton className="h-6 w-3/4" />
-                  <Skeleton className="h-6 w-1/2" />
-                  <Skeleton className="h-10 w-full mt-2" />
-                </div>
-              ))}
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="py-8 md:py-12">
+              <Skeleton className="h-8 w-1/3 mb-6 mx-auto" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {[...Array(8)].map((_, i) => (
+                  <div key={i} className="space-y-2">
+                    <Skeleton className="h-48 w-full" />
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-6 w-1/2" />
+                    <Skeleton className="h-10 w-full mt-2" />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
