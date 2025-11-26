@@ -8,7 +8,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Separator } from '@/components/ui/separator';
 import { Package, User as UserIcon } from 'lucide-react';
 import { useDoc } from '@/firebase/firestore/use-doc';
 import { Order, User } from '@/models/types';
@@ -20,25 +19,25 @@ function AccountSkeleton() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="md:col-span-1">
                     <Card>
-                        <CardHeader className="items-center text-center">
+                        <CardHeader className="items-center text-center p-6">
                             <Skeleton className="h-24 w-24 rounded-full" />
                             <div className="mt-4 space-y-2 w-full">
                                 <Skeleton className="h-6 w-3/4 mx-auto" />
                                 <Skeleton className="h-4 w-full mx-auto" />
                             </div>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="p-6">
                              <Skeleton className="h-10 w-full" />
                         </CardContent>
                     </Card>
                 </div>
                 <div className="md:col-span-2">
                     <Card>
-                        <CardHeader>
+                        <CardHeader className="p-6">
                             <CardTitle>My Orders</CardTitle>
                              <CardDescription>View your past orders and their status.</CardDescription>
                         </CardHeader>
-                        <CardContent className="space-y-4">
+                        <CardContent className="space-y-4 p-6 pt-0">
                            {[...Array(3)].map((_, i) => (
                                <div key={i} className="flex justify-between items-center p-4 border rounded-md">
                                    <div className="space-y-1">
@@ -92,26 +91,26 @@ export default function AccountPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-1">
                     <Card>
-                        <CardHeader className="items-center text-center">
+                        <CardHeader className="items-center text-center p-6">
                              <Avatar className="h-24 w-24 text-4xl">
-                                {user.photoURL ? <AvatarImage src={user.photoURL} alt={userData?.firstName} /> : null}
+                                {user.photoURL ? <AvatarImage src={user.photoURL} alt={userData?.firstName || ''} /> : null}
                                 <AvatarFallback><UserIcon size={48} /></AvatarFallback>
                             </Avatar>
                             <CardTitle className="mt-4 font-headline text-xl md:text-2xl">{userData?.firstName} {userData?.lastName}</CardTitle>
                             <CardDescription className="break-all">{user.email}</CardDescription>
                         </CardHeader>
-                        <CardContent className="text-center">
+                        <CardContent className="text-center p-6 pt-0">
                             <Button variant="outline">Edit Profile</Button>
                         </CardContent>
                     </Card>
                 </div>
                 <div className="lg:col-span-2">
                     <Card>
-                        <CardHeader>
+                        <CardHeader className="p-6">
                             <CardTitle className="font-headline text-2xl">My Orders</CardTitle>
                             <CardDescription>View your past orders and their status.</CardDescription>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="p-6 pt-0">
                            {areOrdersLoading ? (
                                 <div className="space-y-4">
                                   {[...Array(3)].map((_, i) => (
@@ -146,7 +145,7 @@ export default function AccountPage() {
                                     ))}
                                 </div>
                            ) : (
-                               <div className="text-center py-12 md:py-16 border-2 border-dashed rounded-lg">
+                               <div className="text-center py-12 md:py-16 border-2 border-dashed rounded-lg flex flex-col items-center justify-center">
                                     <Package className="mx-auto h-12 w-12 text-muted-foreground" />
                                     <h3 className="mt-4 text-lg font-medium">No Orders Yet</h3>
                                     <p className="mt-1 text-sm text-muted-foreground">You haven't placed any orders with us.</p>

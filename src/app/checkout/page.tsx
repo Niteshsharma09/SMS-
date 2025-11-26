@@ -31,7 +31,7 @@ export default function CheckoutPage() {
 
   if (itemCount === 0) {
     return (
-      <div className="container mx-auto max-w-4xl py-12 text-center">
+      <div className="container mx-auto max-w-4xl py-12 text-center flex flex-col items-center">
         <h1 className="font-headline text-3xl md:text-4xl">Your Cart is Empty</h1>
         <p className="mt-4 text-muted-foreground">
           You need to add items to your cart before you can check out.
@@ -47,7 +47,7 @@ export default function CheckoutPage() {
     const image = PlaceHolderImages.find(img => img.id === product.imageId);
     return (
         <div key={product.id} className="flex items-start gap-4">
-            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md">
+            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border">
                 {image && <Image src={image.imageUrl} alt={product.name} fill className="object-cover" />}
             </div>
             <div className="flex-1">
@@ -112,7 +112,7 @@ export default function CheckoutPage() {
               })}
               </div>
             </ScrollArea>
-            <div className="mt-6 space-y-2 pt-4">
+            <div className="mt-6 space-y-2 pt-4 border-t">
                 <div className="flex justify-between text-muted-foreground">
                     <span>Frames Total</span>
                     <span>Rs{framesTotal.toFixed(2)}</span>

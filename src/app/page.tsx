@@ -238,7 +238,7 @@ function ProductGrid() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16">
+              <div className="text-center py-16 flex flex-col items-center justify-center">
                 <p className="text-xl text-muted-foreground">
                   {areProductsLoading ? 'Loading products...' : (searchQuery ? `No products found for "${searchQuery}".` : "No products found matching your criteria.")}
                 </p>
@@ -266,11 +266,11 @@ function HomePageSkeleton() {
      <div className="flex min-h-screen">
       <Sidebar>
         <div className="p-2">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between p-2 mb-2">
                 <Skeleton className="h-8 w-24" />
                 <Skeleton className="h-8 w-16" />
             </div>
-            <div className="space-y-4">
+            <div className="space-y-2 p-2">
                 <Skeleton className="h-10 w-full" />
                 <Skeleton className="h-10 w-full" />
                 <Skeleton className="h-10 w-full" />
@@ -296,10 +296,10 @@ function HomePageSkeleton() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {[...Array(8)].map((_, i) => (
                 <div key={i} className="space-y-2">
-                  <Skeleton className="h-40 w-full" />
+                  <Skeleton className="h-48 w-full" />
                   <Skeleton className="h-6 w-3/4" />
                   <Skeleton className="h-6 w-1/2" />
-                  <Skeleton className="h-10 w-full" />
+                  <Skeleton className="h-10 w-full mt-2" />
                 </div>
               ))}
             </div>
