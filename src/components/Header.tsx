@@ -35,8 +35,8 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-sm">
-      <div className="container flex h-16 items-center">
-        <div className="flex items-center gap-2 md:gap-4">
+      <div className="container flex h-16 items-center justify-between">
+        <div className="flex items-center gap-2 md:gap-6">
           <div className="md:hidden">
             <SidebarTrigger />
           </div>
@@ -46,28 +46,27 @@ export function Header() {
               Technoii
             </span>
           </Link>
+          <nav className="hidden gap-4 md:flex">
+            <Link
+              href="/?category=frames"
+              className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Eyewear
+            </Link>
+            <Link
+              href="/lenses"
+              className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Lenses
+            </Link>
+            <Link
+              href="/?category=sunglasses"
+              className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Sunglasses
+            </Link>
+          </nav>
         </div>
-
-        <nav className="hidden gap-4 md:flex ml-6">
-          <Link
-            href="/?category=frames"
-            className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Eyewear
-          </Link>
-          <Link
-            href="/lenses"
-            className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Lenses
-          </Link>
-           <Link
-            href="/?category=sunglasses"
-            className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Sunglasses
-          </Link>
-        </nav>
         
         <div className="flex flex-1 items-center justify-end gap-2">
           <div className="w-full max-w-xs sm:max-w-sm ml-auto">
