@@ -29,15 +29,17 @@ export function Header() {
     } else {
       params.delete('q');
     }
-    router.push(`${pathname}?${params.toString()}`);
+    // Only navigate to homepage for search on other pages
+    const targetPath = pathname === '/' ? '' : '/';
+    router.push(`${targetPath}?${params.toString()}`);
   };
 
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-sm">
-      <div className="container flex h-16 items-center">
+      <div className="container flex h-16 items-center justify-between">
         {/* Left side */}
-        <div className="flex items-center gap-2 md:gap-6">
+        <div className="flex items-center gap-2 md:gap-4">
           <div className="md:hidden">
             <SidebarTrigger />
           </div>
@@ -69,8 +71,8 @@ export function Header() {
           </nav>
         </div>
         
-        {/* Center (Search) - grows to fill space */}
-        <div className="flex-1 flex justify-center px-4 sm:px-8 lg:px-12">
+        {/* Center (Search) */}
+        <div className="flex-1 flex justify-center px-4 lg:px-12">
            <div className="w-full max-w-md">
              <form onSubmit={handleSearch} className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
