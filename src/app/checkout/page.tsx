@@ -32,7 +32,7 @@ export default function CheckoutPage() {
   if (itemCount === 0) {
     return (
       <div className="container mx-auto max-w-4xl py-12 text-center">
-        <h1 className="font-headline text-4xl">Your Cart is Empty</h1>
+        <h1 className="font-headline text-3xl md:text-4xl">Your Cart is Empty</h1>
         <p className="mt-4 text-muted-foreground">
           You need to add items to your cart before you can check out.
         </p>
@@ -51,13 +51,13 @@ export default function CheckoutPage() {
                 {image && <Image src={image.imageUrl} alt={product.name} fill className="object-cover" />}
             </div>
             <div className="flex-1">
-                <p className="font-semibold">{product.name}</p>
+                <p className="font-semibold text-sm sm:text-base">{product.name}</p>
                 {isLens ?
                   <p className="text-sm text-muted-foreground">Lens Selection</p> :
                   <p className="text-sm text-muted-foreground">Qty: {quantity}</p>
                 }
             </div>
-            <p className="font-medium text-right">Rs{(price * quantity).toFixed(2)}</p>
+            <p className="font-medium text-right text-sm sm:text-base">Rs{(price * quantity).toFixed(2)}</p>
         </div>
     )
   }
@@ -82,10 +82,10 @@ export default function CheckoutPage() {
         </div>
       </div>
     <div className="container mx-auto max-w-6xl py-8 px-4 md:py-12">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         <div className="lg:order-2">
           <h2 className="font-headline text-2xl mb-4">Order Summary</h2>
-          <div className="rounded-lg border bg-card p-6">
+          <div className="rounded-lg border bg-card p-4 sm:p-6">
             <ScrollArea className="h-64 pr-4">
               <div className="space-y-6">
               {cartItems.map((item) => {
@@ -97,7 +97,7 @@ export default function CheckoutPage() {
                     price: item.lens.price,
                     description: item.lens.features.join(', '),
                     type: 'lenses',
-                    brand: 'Visionary',
+                    brand: 'Visionary', // This needs to be more dynamic if possible
                     style: 'Single Vision', // This needs to be more dynamic if possible
                     material: 'Polycarbonate',
                     imageId: 'lens-1' // Generic lens image
@@ -132,7 +132,7 @@ export default function CheckoutPage() {
                     <span>Rs{shippingCost.toFixed(2)}</span>
                 </div>
                 <Separator className="my-2" />
-                <div className="flex justify-between font-bold text-lg">
+                <div className="flex justify-between font-bold text-base sm:text-lg">
                     <span>Total Payable</span>
                     <span>Rs{totalPayable.toFixed(2)}</span>
                 </div>

@@ -16,7 +16,7 @@ import { Order, User } from '@/models/types';
 
 function AccountSkeleton() {
     return (
-        <div className="container mx-auto max-w-4xl py-12">
+        <div className="container mx-auto max-w-4xl py-8 md:py-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="md:col-span-1">
                     <Card>
@@ -97,8 +97,8 @@ export default function AccountPage() {
                                 {user.photoURL ? <AvatarImage src={user.photoURL} alt={userData?.firstName} /> : null}
                                 <AvatarFallback><UserIcon size={48} /></AvatarFallback>
                             </Avatar>
-                            <CardTitle className="mt-4 font-headline text-2xl">{userData?.firstName} {userData?.lastName}</CardTitle>
-                            <CardDescription>{user.email}</CardDescription>
+                            <CardTitle className="mt-4 font-headline text-xl md:text-2xl">{userData?.firstName} {userData?.lastName}</CardTitle>
+                            <CardDescription className="break-all">{user.email}</CardDescription>
                         </CardHeader>
                         <CardContent className="text-center">
                             <Button variant="outline">Edit Profile</Button>
@@ -136,7 +136,7 @@ export default function AccountPage() {
                                                 </p>
                                                 <p className="font-bold text-lg">Rs{order.totalAmount.toFixed(2)}</p>
                                            </div>
-                                           <div className="flex flex-col sm:items-end gap-2">
+                                           <div className="flex flex-col items-start sm:items-end gap-2">
                                                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize bg-${order.status === 'completed' ? 'green' : 'yellow'}-100 text-${order.status === 'completed' ? 'green' : 'yellow'}-800`}>
                                                     {order.status}
                                                 </span>
@@ -146,7 +146,7 @@ export default function AccountPage() {
                                     ))}
                                 </div>
                            ) : (
-                               <div className="text-center py-16 border-2 border-dashed rounded-lg">
+                               <div className="text-center py-12 md:py-16 border-2 border-dashed rounded-lg">
                                     <Package className="mx-auto h-12 w-12 text-muted-foreground" />
                                     <h3 className="mt-4 text-lg font-medium">No Orders Yet</h3>
                                     <p className="mt-1 text-sm text-muted-foreground">You haven't placed any orders with us.</p>

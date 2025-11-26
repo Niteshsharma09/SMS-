@@ -27,14 +27,14 @@ function ProductPageSkeleton() {
   return (
     <div className="container mx-auto max-w-7xl py-8 px-4 md:py-12">
       <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-        <div className="flex flex-row-reverse gap-4">
+        <div className="flex flex-col-reverse md:flex-row gap-4">
+          <div className="flex md:flex-col gap-2 overflow-x-auto">
+            {[...Array(4)].map((_, i) => (
+              <Skeleton key={i} className="w-20 h-20 rounded-md flex-shrink-0" />
+            ))}
+          </div>
           <div className="flex-1">
             <Skeleton className="aspect-square w-full rounded-lg" />
-          </div>
-          <div className="flex flex-col gap-2">
-            {[...Array(4)].map((_, i) => (
-              <Skeleton key={i} className="w-20 h-20 rounded-md" />
-            ))}
           </div>
         </div>
         <div className="flex flex-col space-y-4">
@@ -143,7 +143,24 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     <div className="container mx-auto max-w-7xl py-8 px-4 md:py-12">
       <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
         {/* Image Gallery */}
-        <div className="flex flex-row-reverse gap-4">
+        <div className="flex flex-col-reverse md:flex-row gap-4">
+             <div className="flex md:flex-col gap-2 overflow-x-auto pb-2 md:pb-0">
+                {galleryImages.map((img, index) => (
+                    <div 
+                      key={index} 
+                      className={`relative w-20 h-20 rounded-md border-2 cursor-pointer overflow-hidden flex-shrink-0 ${activeImage === img.imageUrl ? 'border-primary' : 'border-transparent'}`}
+                      onClick={() => setActiveImage(img.imageUrl)}
+                    >
+                    <Image
+                        src={img.imageUrl}
+                        alt={`${product.name} thumbnail ${index + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="80px"
+                    />
+                    </div>
+                ))}
+            </div>
              <div 
               className="flex-1 relative aspect-square w-full overflow-hidden rounded-lg shadow-lg"
               onMouseEnter={() => setZoom(true)}
@@ -167,29 +184,12 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                     />
                 )}
             </div>
-            <div className="flex flex-col gap-2">
-            {galleryImages.map((img, index) => (
-                <div 
-                  key={index} 
-                  className={`relative w-20 h-20 rounded-md border-2 cursor-pointer overflow-hidden ${activeImage === img.imageUrl ? 'border-primary' : 'border-transparent'}`}
-                  onClick={() => setActiveImage(img.imageUrl)}
-                >
-                <Image
-                    src={img.imageUrl}
-                    alt={`${product.name} thumbnail ${index + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="80px"
-                />
-                </div>
-            ))}
-            </div>
         </div>
 
         {/* Product Info */}
         <div className="flex flex-col">
-          <h1 className="font-headline text-4xl lg:text-5xl font-bold">{product.brand}</h1>
-          <p className="mt-1 text-xl text-muted-foreground">{product.name}</p>
+          <h1 className="font-headline text-3xl md:text-4xl lg:text-5xl font-bold">{product.brand}</h1>
+          <p className="mt-1 text-lg md:text-xl text-muted-foreground">{product.name}</p>
           
           <div className="mt-4 flex items-center gap-2">
             <div className="flex items-center gap-1 text-yellow-500">
