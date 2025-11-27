@@ -228,8 +228,8 @@ function ProductGrid() {
           
           <CategoryNavigation onSelectCategory={handleCategorySelect} selectedCategory={filters.type[0]} />
 
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="py-8 md:py-12">
+          <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
               <h2 className="font-headline text-3xl font-semibold mb-6 text-center">
                 {searchQuery ? `Search results for "${searchQuery}"` : "Our Collection"}
               </h2>
