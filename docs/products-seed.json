@@ -1,0 +1,414 @@
+
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Metropolis",
+      "price": 150,
+      "description": "Sleek and modern, these rectangular frames are perfect for the urban professional. Made from lightweight titanium.",
+      "type": "frames",
+      "brand": "Vogue",
+      "style": "Rectangular",
+      "material": "Titanium",
+      "imageId": "frame-1"
+    },
+    {
+      "id": "2",
+      "name": "Artisan",
+      "price": 180,
+      "description": "Classic tortoise shell in a contemporary round shape. Crafted from high-quality acetate for a comfortable fit.",
+      "type": "frames",
+      "brand": "Persol",
+      "style": "Round",
+      "material": "Acetate",
+      "imageId": "frame-2"
+    },
+    {
+      "id": "3",
+      "name": "Maverick",
+      "price": 220,
+      "description": "A modern take on the classic aviator. These minimalist silver metal frames are both stylish and durable.",
+      "type": "frames",
+      "brand": "Ray-Ban",
+      "style": "Aviator",
+      "material": "Metal",
+      "imageId": "frame-3"
+    },
+    {
+      "id": "4",
+      "name": "Diva",
+      "price": 165,
+      "description": "Make a statement with these bold red cat-eye frames. Perfect for adding a pop of color to any outfit.",
+      "type": "frames",
+      "brand": "Vogue",
+      "style": "Cat-Eye",
+      "material": "Acetate",
+      "imageId": "frame-4"
+    },
+    {
+      "id": "5",
+      "name": "Scholar",
+      "price": 195,
+      "description": "A sophisticated browline style with a transparent clear finish. The perfect blend of vintage and modern.",
+      "type": "frames",
+      "brand": "Persol",
+      "style": "Browline",
+      "material": "Acetate",
+      "imageId": "frame-5"
+    },
+    {
+      "id": "6",
+      "name": "Poet",
+      "price": 210,
+      "description": "Delicate gold wire-rim oval frames that exude a vintage charm. Lightweight and elegant for everyday wear.",
+      "type": "frames",
+      "brand": "Ray-Ban",
+      "style": "Round",
+      "material": "Metal",
+      "imageId": "frame-6"
+    },
+    {
+      "id": "7",
+      "name": "Icon",
+      "price": 155,
+      "description": "The timeless black wayfarer. These sunglasses are an essential accessory for any wardrobe, offering 100% UV protection.",
+      "type": "sunglasses",
+      "brand": "Ray-Ban",
+      "style": "Wayfarer",
+      "material": "Acetate",
+      "imageId": "sun-1"
+    },
+    {
+      "id": "8",
+      "name": "Pilot",
+      "price": 190,
+      "description": "Classic gold-rimmed aviator sunglasses with signature green lenses. An enduring style icon.",
+      "type": "sunglasses",
+      "brand": "Ray-Ban",
+      "style": "Aviator",
+      "material": "Metal",
+      "imageId": "sun-2"
+    },
+    {
+      "id": "9",
+      "name": "Glamour",
+      "price": 175,
+      "description": "Oversized and glamorous round sunglasses for a movie-star look. Provides excellent coverage and style.",
+      "type": "sunglasses",
+      "brand": "Vogue",
+      "style": "Round",
+      "material": "Acetate",
+      "imageId": "sun-3"
+    },
+    {
+      "id": "10",
+      "name": "Velocity",
+      "price": 250,
+      "description": "Sporty wraparound sunglasses with polarized lenses, designed for high performance and maximum clarity.",
+      "type": "sunglasses",
+      "brand": "Oakley",
+      "style": "Sport",
+      "material": "Titanium",
+      "imageId": "sun-4"
+    },
+    {
+      "id": "11",
+      "name": "Retrograde",
+      "price": 185,
+      "description": "Stand out with these retro-inspired hexagonal sunglasses. Features metal frames and warm brown lenses.",
+      "type": "sunglasses",
+      "brand": "Persol",
+      "style": "Wayfarer",
+      "material": "Metal",
+      "imageId": "sun-5"
+    },
+    {
+      "id": "12",
+      "name": "Chic",
+      "price": 160,
+      "description": "Elegant white-framed cat-eye sunglasses. A perfect accessory for a sunny day by the Riviera.",
+      "type": "sunglasses",
+      "brand": "Vogue",
+      "style": "Cat-Eye",
+      "material": "Acetate",
+      "imageId": "sun-6"
+    },
+    {
+      "id": "13",
+      "name": "Single Vision",
+      "price": 120,
+      "description": "High-quality single vision lenses for clear sight at all distances. Made from durable polycarbonate.",
+      "type": "lenses",
+      "brand": "Visionary",
+      "style": "Single Vision",
+      "material": "Polycarbonate",
+      "imageId": "lens-1"
+    },
+    {
+      "id": "14",
+      "name": "Progressives",
+      "price": 280,
+      "description": "Seamless progressive lenses for perfect vision at near, intermediate, and far distances. No more lines.",
+      "type": "lenses",
+      "brand": "Visionary",
+      "style": "Progressive",
+      "material": "Polycarbonate",
+      "imageId": "lens-2"
+    },
+    {
+      "id": "15",
+      "name": "Zero Power",
+      "price": 90,
+      "description": "For fashion or screen protection without correction.",
+      "type": "lenses",
+      "brand": "Visionary",
+      "style": "Zero Power",
+      "material": "Polycarbonate",
+      "imageId": "lens-3"
+    },
+    {
+      "id": "17",
+      "name": "Bifocals",
+      "price": 220,
+      "description": "Lined bifocal lenses for clear vision at two distances. A classic solution for presbyopia.",
+      "type": "lenses",
+      "brand": "Visionary",
+      "style": "Bifocal",
+      "material": "Polycarbonate",
+      "imageId": "lens-bifocal"
+    },
+    {
+      "id": "18",
+      "name": "Holbrook",
+      "price": 180,
+      "description": "A timeless, classic design fused with modern Oakley technology. Inspired by the screen heroes from the 1940s, 50s, and 60s.",
+      "type": "sunglasses",
+      "brand": "Oakley",
+      "style": "Wayfarer",
+      "material": "Acetate",
+      "imageId": "sun-1"
+    },
+    {
+      "id": "19",
+      "name": "Cellor",
+      "price": 280,
+      "description": "An iconic Persol design, the Cellor features a distinctive browline style and the signature Persol arrow.",
+      "type": "sunglasses",
+      "brand": "Persol",
+      "style": "Browline",
+      "material": "Acetate",
+      "imageId": "sun-5"
+    },
+    {
+      "id": "20",
+      "name": "Round Metal",
+      "price": 210,
+      "description": "Totally retro. This look has been worn by legendary musicians and inspired by the 1960s counter-culture.",
+      "type": "sunglasses",
+      "brand": "Ray-Ban",
+      "style": "Round",
+      "material": "Metal",
+      "imageId": "sun-2"
+    },
+    {
+      "id": "21",
+      "name": "Clubmaster Classic",
+      "price": 215,
+      "description": "A timeless design that combines retro and modern sophistication. Featuring a distinct browline.",
+      "type": "frames",
+      "brand": "Ray-Ban",
+      "style": "Browline",
+      "material": "Acetate",
+      "imageId": "frame-7"
+    },
+    {
+      "id": "22",
+      "name": "Airdrop",
+      "price": 190,
+      "description": "Lightweight and durable O Matter™ frames with a clean, minimalist design for everyday wear.",
+      "type": "frames",
+      "brand": "Oakley",
+      "style": "Rectangular",
+      "material": "Polycarbonate",
+      "imageId": "frame-8"
+    },
+    {
+      "id": "23",
+      "name": "Timeless Elegance",
+      "price": 170,
+      "description": "A beautifully crafted metal frame with a delicate design, perfect for a sophisticated and elegant look.",
+      "type": "frames",
+      "brand": "Vogue",
+      "style": "Cat-Eye",
+      "material": "Metal",
+      "imageId": "frame-9"
+    },
+    {
+      "id": "24",
+      "name": "Edge",
+      "price": 250,
+      "description": "Bold, sharp lines define this modern frame from Titan. Engineered for a comfortable yet secure fit.",
+      "type": "frames",
+      "brand": "Titan",
+      "style": "Rectangular",
+      "material": "Titanium",
+      "imageId": "frame-10"
+    },
+    {
+      "id": "25",
+      "name": "Urban Trend",
+      "price": 120,
+      "description": "A trendy and youthful design from Fastrack. These frames are all about making a fashion statement.",
+      "type": "frames",
+      "brand": "Fastrack",
+      "style": "Wayfarer",
+      "material": "Polycarbonate",
+      "imageId": "frame-11"
+    },
+    {
+      "id": "26",
+      "name": "Visionary One",
+      "price": 180,
+      "description": "The signature frame from Technoii. A perfect blend of technology and style, designed for the modern innovator.",
+      "type": "frames",
+      "brand": "Technoii",
+      "style": "Browline",
+      "material": "Acetate",
+      "imageId": "frame-12"
+    },
+    {
+      "id": "27",
+      "name": "Laurel Classic",
+      "price": 200,
+      "description": "Experience the luxury of Lauredale with these exquisitely crafted frames. Timeless elegance guaranteed.",
+      "type": "frames",
+      "brand": "Lauredale",
+      "style": "Round",
+      "material": "Metal",
+      "imageId": "frame-13"
+    },
+    {
+      "id": "28",
+      "name": "Bold Square",
+      "price": 140,
+      "description": "Make a statement with these bold square frames from NVG.",
+      "type": "frames",
+      "brand": "NVG",
+      "style": "Rectangular",
+      "material": "Acetate",
+      "imageId": "frame-14"
+    },
+    {
+      "id": "29",
+      "name": "Titan Wayfarer",
+      "price": 160,
+      "description": "Classic wayfarer style meets Titan's engineering.",
+      "type": "frames",
+      "brand": "Titan",
+      "style": "Wayfarer",
+      "material": "Polycarbonate",
+      "imageId": "frame-15"
+    },
+    {
+      "id": "30",
+      "name": "Technoii Smart",
+      "price": 350,
+      "description": "The future of eyewear. Smart glasses by Technoii.",
+      "type": "frames",
+      "brand": "Technoii",
+      "style": "Rectangular",
+      "material": "Titanium",
+      "imageId": "frame-16"
+    },
+    {
+      "id": "31",
+      "name": "Lauredale Luxe",
+      "price": 280,
+      "description": "Luxury cat-eye frames in plated gold from Lauredale.",
+      "type": "frames",
+      "brand": "Lauredale",
+      "style": "Cat-Eye",
+      "material": "Metal",
+      "imageId": "frame-17"
+    },
+    {
+      "id": "32",
+      "name": "Titan Square",
+      "price": 180,
+      "description": "Modern square sunglasses from Titan.",
+      "type": "sunglasses",
+      "brand": "Titan",
+      "style": "Rectangular",
+      "material": "Titanium",
+      "imageId": "sun-7"
+    },
+    {
+      "id": "33",
+      "name": "Fastrack Sport",
+      "price": 130,
+      "description": "Sporty and durable sunglasses from Fastrack.",
+      "type": "sunglasses",
+      "brand": "Fastrack",
+      "style": "Sport",
+      "material": "Polycarbonate",
+      "imageId": "sun-8"
+    },
+    {
+      "id": "34",
+      "name": "Lauredale Glam",
+      "price": 260,
+      "description": "Oversized luxury sunglasses from Lauredale.",
+      "type": "sunglasses",
+      "brand": "Lauredale",
+      "style": "Round",
+      "material": "Acetate",
+      "imageId": "sun-9"
+    },
+    {
+      "id": "35",
+      "name": "Technoii Shield",
+      "price": 320,
+      "description": "Futuristic shield sunglasses from Technoii.",
+      "type": "sunglasses",
+      "brand": "Technoii",
+      "style": "Sport",
+      "material": "Polycarbonate",
+      "imageId": "sun-10"
+    },
+    {
+      "id": "36",
+      "name": "NVG Tactical",
+      "price": 190,
+      "description": "Wraparound tactical sunglasses from NVG.",
+      "type": "sunglasses",
+      "brand": "NVG",
+      "style": "Sport",
+      "material": "Polycarbonate",
+      "imageId": "sun-11"
+    },
+    {
+      "id": "37",
+      "name": "Photochromic",
+      "price": 250,
+      "description": "Lenses that darken on exposure to specific types of light of sufficient intensity, most commonly ultraviolet radiation.",
+      "type": "lenses",
+      "brand": "Visionary",
+      "style": "Photochromic",
+      "material": "Polycarbonate",
+      "imageId": "lens-4"
+    },
+    {
+      "id": "38",
+      "name": "High-Index",
+      "price": 300,
+      "description": "Thinner and lighter lenses for those with strong prescriptions.",
+      "type": "lenses",
+      "brand": "Visionary",
+      "style": "High-Index",
+      "material": "Polycarbonate",
+      "imageId": "lens-5"
+    }
+  ]
+}
+
+    
